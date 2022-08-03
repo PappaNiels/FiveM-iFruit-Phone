@@ -241,6 +241,8 @@ end--
     7 = Undefined Settings etc?
     8 = Email list
     9 = Email 
+    11 = ?
+    18 = ?
 ]]
 
 local function SetAppsHome()
@@ -440,6 +442,14 @@ function GetPedMugshot(id)
     end
 
     return GetPedheadshotTxdString(pedheadshotint)
+end
+
+function LoadTexture(txd)
+    RequestStreamedTextureDict(txd)
+
+    while not HasStreamedTextureDictLoaded(txd) do 
+        Wait(0)
+    end
 end
 
 function GetNameOfSender(name)

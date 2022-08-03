@@ -1,5 +1,5 @@
 texts = {
-    {1, "Text Title 1", "This is the content", 12, 1},
+    {1, "Text Title 1", "This is the content", 12, 1}, -- test texts
     {"2", "Text Title 2", "This is the content", 1, 32},
     {"3", "Text Title 3", "This is the content", 11, 3}
 }
@@ -21,20 +21,18 @@ local function LoadTexts()
 end
 
 local function UnloadTexts()
-    for i = 0, #texts do 
+    --for i = 1, #texts do 
         BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
         ScaleformMovieMethodAddParamInt(6)
         EndScaleformMovieMethod()
-    end
+    --end
 end
 
 local function AddText(sender, title, msg, hour, minute)
     UnloadTexts()
 
     for i = #texts, 1, -1 do 
-        print(texts[i][1])
         texts[i + 1] = texts[i]
-        print(texts[i + 1][1])
     end
 
     texts[1] = {sender, title, msg, hour, minute}

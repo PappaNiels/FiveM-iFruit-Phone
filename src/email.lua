@@ -1,5 +1,5 @@
 emails = {
-    {1, "Email Title", "This is the content", false, false},
+    {1, "Email Title", "This is the content", false, false}, -- test emails
     {1, "Email Title", "This is the content", false, false},
     {1, "Email Title", "This is the content", false, false},
     {2, "Email Title", "This is the content", false, false}
@@ -19,11 +19,11 @@ local function LoadEmails()
 end
 
 local function UnloadEmails()
-    for i = 0, #emails do
+    --for i = 1, #emails do
         BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
         ScaleformMovieMethodAddParamInt(8)
         EndScaleformMovieMethod()
-    end
+    --end
 end 
 
 local function AddEmail(sender, title, msg, withFile)
@@ -43,8 +43,8 @@ function OpenEmail()
     LoadEmails()
 
     BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
-    ScaleformMovieMethodAddParamInt(8) -- Type
-    ScaleformMovieMethodAddParamInt(altPlacement) -- Place
+    ScaleformMovieMethodAddParamInt(8) 
+    ScaleformMovieMethodAddParamInt(altPlacement) 
     EndScaleformMovieMethod()
 end
 
