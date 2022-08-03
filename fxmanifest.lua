@@ -7,7 +7,5 @@ description "The iFruit phone from Grand Theft Auto Online"
 version "1.0.0"
 
 client_scripts {
-    "main.lua",
-    "email.lua",
-    "text.lua"
+    "src/*"
 }
