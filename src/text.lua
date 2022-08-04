@@ -12,7 +12,7 @@ local function LoadTexts()
         ScaleformMovieMethodAddParamInt(texts[i][4]) -- Time Hours
         ScaleformMovieMethodAddParamInt(texts[i][5]) -- Time Minutes
         ScaleformMovieMethodAddParamInt(texts[i][5]) -- Time Minutes
-        ScaleformMovieMethodAddParamPlayerNameString(GetNameOfSender(texts[i][1])) -- Sender
+        ScaleformMovieMethodAddParamPlayerNameString(GetName(texts[i][1])) -- Sender
         ScaleformMovieMethodAddParamPlayerNameString(texts[i][2]) -- Text Title
         ScaleformMovieMethodAddParamBool(false)
 
@@ -21,11 +21,9 @@ local function LoadTexts()
 end
 
 local function UnloadTexts()
-    --for i = 1, #texts do 
-        BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
-        ScaleformMovieMethodAddParamInt(6)
-        EndScaleformMovieMethod()
-    --end
+    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
+    ScaleformMovieMethodAddParamInt(6)
+    EndScaleformMovieMethod()
 end
 
 local function AddText(sender, title, msg, hour, minute)

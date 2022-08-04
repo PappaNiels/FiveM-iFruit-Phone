@@ -12,18 +12,16 @@ local function LoadEmails()
         ScaleformMovieMethodAddParamInt(i - 1) -- Place
         ScaleformMovieMethodAddParamBool(emails[i][4]) -- Read
         ScaleformMovieMethodAddParamBool(emails[i][5]) -- With File
-        ScaleformMovieMethodAddParamPlayerNameString(GetNameOfSender(emails[i][1])) -- Sender
+        ScaleformMovieMethodAddParamPlayerNameString(GetName(emails[i][1])) -- Sender
         ScaleformMovieMethodAddParamPlayerNameString(emails[i][2]) -- Email Title
         EndScaleformMovieMethod()
     end
 end
 
 local function UnloadEmails()
-    --for i = 1, #emails do
-        BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
-        ScaleformMovieMethodAddParamInt(8)
-        EndScaleformMovieMethod()
-    --end
+    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
+    ScaleformMovieMethodAddParamInt(8)
+    EndScaleformMovieMethod()
 end 
 
 local function AddEmail(sender, title, msg, withFile)
