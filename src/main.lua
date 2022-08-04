@@ -16,7 +16,7 @@ local headers = {
     "Email",
     "Texts",
     "Contacts",
-    "Quick ",
+    "Quick Job",
     "Job List",
     "Settings",
     "Snapmatic",
@@ -100,7 +100,7 @@ local function GetApp(app)
     elseif app == 2 then 
         return 2
     elseif app == 4 then 
-        return 7
+        return 11
     elseif app == 5 then 
         return 7
     elseif app == 8 then 
@@ -230,12 +230,35 @@ end--
     3 = Homepage
     4 = Call 
     5 = Homepage
-    6 = Texts
-    7 = Undefined Settings etc?
+    6 = Texts list
+    7 = Text
     8 = Email list
     9 = Email 
-    11 = ?
-    18 = ?
+    11 = Keypad
+    13 = Settings
+    14 = ? (forced colour header is brown??)
+    15 = List for 14
+    16 = Black screen
+    17 = List for 14
+    18 = Settings
+    19 = ? List
+    22 = Settings int(22), int, 
+    23 = Trackify
+    24 = Coords int(24), int, bool, string, int, int, int, int, int, int, string, int, int, int
+    25 = Job list beige
+    26 = Black text
+    27 = SecuroServ Hack no signal
+
+    Text layout
+    LoadTexture("char_default") 
+    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
+    ScaleformMovieMethodAddParamInt(7)
+    ScaleformMovieMethodAddParamInt(0)
+    ScaleformMovieMethodAddParamPlayerNameString("test1") -- Name
+    ScaleformMovieMethodAddParamPlayerNameString("test2") -- Description  
+    ScaleformMovieMethodAddParamPlayerNameString("char_default") -- Profile picture
+    EndScaleformMovieMethod()
+    
 ]]
 
 local function SetAppsHome()
@@ -385,6 +408,8 @@ CreateThread(function()
                     UnloadTexts()
                 elseif dataType == 2 then 
                     UnloadContacts()
+                elseif dataType == 4 then 
+                    UnloadJobList()
                 end
                 altPlacement = 0
                 appList = appList - 1
