@@ -373,7 +373,6 @@ CreateThread(function()
     while true do 
         Wait(0)
         if appList > 0 then
-            print("tick")
             if IsControlJustPressed(0, 172) then -- Up
                 if altPlacement ~= 0  then 
                     PlaySoundFrontend(-1, "Menu_Navigate", "Phone_SoundSet_Michael", true)
