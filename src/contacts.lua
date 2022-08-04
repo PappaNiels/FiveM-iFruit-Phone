@@ -74,18 +74,6 @@ local function LoadPlayerContacts()
     end
 end
 
-local function AddContact(id, texture)
-    UnloadContacts()
-
-    for i = #contacts, 1, -1 do 
-        contacts[i + 1] = contacts[i]
-    end
-
-    contacts[1] = {contact, texture}
-
-    PlaySoundFrontend(-1, "Notification", "Phone_SoundSet_Michael", true)
-end
-
 local function AddBomb() -- To do
     UnloadContacts()
 end
@@ -109,11 +97,5 @@ function OpenContacts()
     EndScaleformMovieMethod()
 end
 
-RegisterNetEvent("cl:ifruit:addContact", AddContact)
 RegisterNetEvent("cl:ifruit:addBomb", AddBomb)
 RegisterNetEvent("cl:ifruit:removeBomb", RemoveBomb)
-
-function ScaleformString(txt)
-    BeginTextCommandScaleformString(txt)
-    EndTextCommandScaleformString()
-end

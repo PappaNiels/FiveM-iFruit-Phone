@@ -174,7 +174,7 @@ end--
 
 --local function OpenSettings()
 --    
---end--
+--end
 
 local function OpenCamera()
     InfoMsg("This part of the phone does not exist (yet)...")
@@ -184,7 +184,7 @@ local function OpenInternet()
     InfoMsg("This part of the phone does not exist (yet)...")
 end--
 
---local function OpenSecuroServ()--
+--local function OpenSecuroServ()
 
 --end
 
@@ -344,24 +344,16 @@ CreateThread(function()
             if IsControlJustPressed(0, 27) then 
                 LoadScaleform()
                 PlaySoundFrontend(-1, "Pull_Out", "Phone_SoundSet_Michael", true)
-
-                phoneActive = true
-
-                --SetMobilePhonePosition()
+                CreateMobilePhone(0)
                 SetMobilePhoneScale(280.0)
-                --SetMobilePhoneRotation(-90.0, 0.0, 90.0)
                 SetMobilePhoneRotation(-90.0, 0.0, 0.0)
                 SetMobilePhonePosition(61.5, -68.0, -60.0)
-                CreateMobilePhone(0)
-
                 SetSleepMode(sleepMode)
                 SetTheme(currentTheme)
                 SetBackground(currentBackground)
                 SetAppsHome()
-                
-                --SetMobilePhonePosition(56.0, -28.0, -60.0)
-                --print(GetMobilePhonePosition().y)
                 MovePhone(true)
+                phoneActive = true
             end
         else 
             Wait(100)
