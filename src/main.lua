@@ -82,7 +82,7 @@ local function GetDataLength()
     elseif dataType == 1 then -- Text
         return #texts
     elseif dataType == 2 then -- Contacts
-        return #contacts
+        return #contacts + #standardContacts
     elseif dataType == 4 then -- Job List
         return #jobListInv
     elseif dataType == 5 then -- Settings
@@ -147,26 +147,19 @@ local function SetPlacement(app, change)
     else 
         altPlacement = altPlacement + change 
 
+        BeginScaleformMovieMethod(scaleform, "SET_INPUT_EVENT")
+        if change > 0 then 
+            ScaleformMovieMethodAddParamInt(3)
+        else 
+            ScaleformMovieMethodAddParamInt(1)
+        end
+        
         BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
         ScaleformMovieMethodAddParamInt(app) -- Type
         ScaleformMovieMethodAddParamInt(altPlacement) -- Place
         EndScaleformMovieMethod()
     end
 end
-
---local function OpenTexts()
---    BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
---    ScaleformMovieMethodAddParamInt(6) -- Type
---    ScaleformMovieMethodAddParamInt(altPlacement) -- Place
---    EndScaleformMovieMethod()
---end--
-
---local function OpenContacts()
---    BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
---    ScaleformMovieMethodAddParamInt(2) -- Type
---    ScaleformMovieMethodAddParamInt(altPlacement) -- Place
---    EndScaleformMovieMethod()
---end--
 
 local function OpenQuick()
     InfoMsg("This part of the phone does not exist (yet)...")
@@ -355,7 +348,7 @@ CreateThread(function()
                 phoneActive = true
 
                 --SetMobilePhonePosition()
-                SetMobilePhoneScale(250.0)
+                SetMobilePhoneScale(280.0)
                 --SetMobilePhoneRotation(-90.0, 0.0, 90.0)
                 SetMobilePhoneRotation(-90.0, 0.0, 0.0)
                 SetMobilePhonePosition(61.5, -68.0, -60.0)
@@ -380,6 +373,7 @@ CreateThread(function()
     while true do 
         Wait(0)
         if appList > 0 then
+            print("tick")
             if IsControlJustPressed(0, 172) then -- Up
                 if altPlacement ~= 0  then 
                     PlaySoundFrontend(-1, "Menu_Navigate", "Phone_SoundSet_Michael", true)
@@ -452,7 +446,7 @@ function LoadTexture(txd)
     end
 end
 
-function GetNameOfSender(name)
+function GetName(name)
     if type(name) == "string" then
         print(name) 
         return name 
