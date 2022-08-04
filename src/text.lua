@@ -20,12 +20,6 @@ local function LoadTexts()
     end
 end
 
-local function UnloadTexts()
-    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
-    ScaleformMovieMethodAddParamInt(6)
-    EndScaleformMovieMethod()
-end
-
 local function AddText(sender, title, msg, hour, minute)
     UnloadTexts()
 
@@ -37,6 +31,12 @@ local function AddText(sender, title, msg, hour, minute)
 
     PlaySoundFrontend(-1, "Notification", "Phone_SoundSet_Michael", true)
     InfoMsgExtra(sender, title, msg, 1)
+end
+
+function UnloadTexts()
+    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
+    ScaleformMovieMethodAddParamInt(6)
+    EndScaleformMovieMethod()
 end
 
 function OpenTexts()

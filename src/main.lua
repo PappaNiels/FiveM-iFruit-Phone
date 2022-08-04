@@ -153,7 +153,7 @@ local function SetPlacement(app, change)
         else 
             ScaleformMovieMethodAddParamInt(1)
         end
-        
+
         BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
         ScaleformMovieMethodAddParamInt(app) -- Type
         ScaleformMovieMethodAddParamInt(altPlacement) -- Place
@@ -388,7 +388,12 @@ CreateThread(function()
                 PlaySoundFrontend(-1, "Menu_Back", "Phone_SoundSet_Michael", true)
                 SetPlacement(1, 0)
                 if dataType == 0 then 
+                    UnloadEmails()
                     RotatePhone(false)
+                elseif dataType == 1 then 
+                    UnloadTexts()
+                elseif dataType == 2 then 
+                    UnloadContacts()
                 end
                 altPlacement = 0
                 appList = appList - 1

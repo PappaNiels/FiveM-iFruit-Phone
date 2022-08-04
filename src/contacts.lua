@@ -74,12 +74,6 @@ local function LoadPlayerContacts()
     end
 end
 
-local function UnloadContacts()
-    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
-    ScaleformMovieMethodAddParamInt(2)
-    EndScaleformMovieMethod()
-end
-
 local function AddContact(id, texture)
     UnloadContacts()
 
@@ -98,6 +92,12 @@ end
 
 local function RemoveBomb() -- To do
     UnloadContacts()
+end
+
+function UnloadContacts()
+    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
+    ScaleformMovieMethodAddParamInt(2)
+    EndScaleformMovieMethod()
 end
 
 function OpenContacts()

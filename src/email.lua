@@ -18,12 +18,6 @@ local function LoadEmails()
     end
 end
 
-local function UnloadEmails()
-    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
-    ScaleformMovieMethodAddParamInt(8)
-    EndScaleformMovieMethod()
-end 
-
 local function AddEmail(sender, title, msg, withFile)
     UnloadEmails()
 
@@ -36,6 +30,12 @@ local function AddEmail(sender, title, msg, withFile)
     PlaySoundFrontend(-1, "Notification", "Phone_SoundSet_Michael", true)
     InfoMsgExtra(sender, title, msg, 2)
 end
+
+function UnloadEmails()
+    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
+    ScaleformMovieMethodAddParamInt(8)
+    EndScaleformMovieMethod()
+end 
 
 function OpenEmail()
     LoadEmails()
