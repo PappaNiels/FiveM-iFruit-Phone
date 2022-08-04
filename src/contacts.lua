@@ -1,5 +1,5 @@
 contacts = {
-    {2}
+    2
 }
 
 assistant = "char_pa_female" -- char_pa_male
@@ -49,13 +49,14 @@ standardContacts = { -- char_detonatebomb
 
 local function LoadPlayerContacts()
     LoadTexture("char_default")
+    contacts = GetActivePlayers()
     for i = 1, #contacts + #standardContacts do 
         if i <= #contacts then 
             BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
             ScaleformMovieMethodAddParamInt(2) -- Type
             ScaleformMovieMethodAddParamInt(i - 1) -- Position
             ScaleformMovieMethodAddParamBool(false)  -- !
-            ScaleformMovieMethodAddParamPlayerNameString(GetName(contacts[i][1])) -- Text
+            ScaleformMovieMethodAddParamPlayerNameString(GetName(contacts[i])) -- Text
             ScaleformMovieMethodAddParamTextureNameString("char_default") -- Profile picture
             ScaleformMovieMethodAddParamTextureNameString("char_default") -- Profile picture
             EndScaleformMovieMethod()
