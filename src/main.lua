@@ -252,6 +252,7 @@ end--
     17 = List for 14
     18 = Settings
     19 = ? List
+    20 = Job list?
     22 = Settings 
     23 = Trackify
     24 = Coords int(24), int, bool, string, int, int, int, int, int, int, string, int, int, int
@@ -444,7 +445,7 @@ CreateThread(function()
                 elseif dataType == 3 then 
                     
                 elseif dataType == 4 then 
-                    OpenJobText(altPlacement)
+                    --OpenJobText(altPlacement)
                     appList = appList + 1
                 elseif dataType == 5 then 
                     OpenSettingsType(altPlacement)
@@ -585,8 +586,4 @@ function GetName(name)
     elseif type(name) == "number" then  
         return GetPlayerName(GetPlayerFromServerId(name))
     end
-end
-
-function NewContact()
-
 end
