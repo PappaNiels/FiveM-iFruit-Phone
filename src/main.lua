@@ -132,9 +132,9 @@ local function SetTheme(_theme)
     EndScaleformMovieMethod()
 end
 
-local function SetHeader()
+local function SetHeader(num)
     BeginScaleformMovieMethod(scaleform, "SET_HEADER")
-    ScaleformMovieMethodAddParamPlayerNameString(headers[placement])
+    ScaleformMovieMethodAddParamPlayerNameString(headers[num])
     EndScaleformMovieMethod()
 end
 
@@ -491,7 +491,7 @@ CreateThread(function()
                 elseif dataType == 5 then 
                     UnloadAllSettings()
                     OpenSettings()
-                    SetHeader()
+                    SetHeader(6)
                 end
                 altPlacement = 0
                 appList = appList - 1
@@ -513,7 +513,7 @@ CreateThread(function()
                     elseif previousList == 4 then 
                         SetTheme(altPlacement + 1)
                     end
-                    SetHeader()
+                    SetHeader(6)
                     UnloadAllSettings()
                     OpenSettings()
                 elseif dataType == 6 then 
