@@ -2,14 +2,16 @@ scaleform = 0
 altPlacement = 0
 appList = 0
 dataType = 0
+currentTheme = 2
+currentBackground = 9
+previousList = 0
 
 local phoneActive = false 
 local sleepMode = false
 local inApp = false 
 local isPhoneRotated = false
+local hackSecuroserv = false 
 
-local currentTheme = 5
-local currentBackground = 11
 local placement = 4 
 
 local headers = {
@@ -86,7 +88,13 @@ local function GetDataLength()
     elseif dataType == 4 then -- Job List
         return #jobListInv
     elseif dataType == 5 then -- Settings
-        return #settings
+        if appList == 1 then 
+            return #settings
+        elseif previousList == 0 then  
+            return #background 
+        else 
+            return #theme
+        end
     elseif dataType == 8 then -- SecuroServ
         return #securoservInv
     end
@@ -102,7 +110,7 @@ local function GetApp(app)
     elseif app == 4 then 
         return 11
     elseif app == 5 then 
-        return 7
+        return 22
     elseif app == 8 then 
         return 1 
     end
@@ -116,19 +124,25 @@ local function SetSleepMode(bool)
     EndScaleformMovieMethod()
 end
 
-local function SetTheme(theme)
-    currentTheme = theme
+local function SetTheme(_theme)
+    currentTheme = _theme
 
     BeginScaleformMovieMethod(scaleform, "SET_THEME")
-    ScaleformMovieMethodAddParamInt(currentTheme)
+    ScaleformMovieMethodAddParamInt(theme[currentTheme][3])
     EndScaleformMovieMethod()
 end
 
-local function SetBackground(background)
-    currentBackground = background 
+local function SetHeader()
+    BeginScaleformMovieMethod(scaleform, "SET_HEADER")
+    ScaleformMovieMethodAddParamPlayerNameString(headers[placement])
+    EndScaleformMovieMethod()
+end
+
+local function SetBackground(_background)
+    currentBackground = _background 
 
     BeginScaleformMovieMethod(scaleform, "SET_BACKGROUND_IMAGE")
-    ScaleformMovieMethodAddParamInt(currentBackground)
+    ScaleformMovieMethodAddParamInt(background[currentBackground][3])
     EndScaleformMovieMethod()
 end
 
@@ -171,10 +185,6 @@ end--
 --    ScaleformMovieMethodAddParamInt(altPlacement) -- Place
 --    EndScaleformMovieMethod()
 --end--
-
---local function OpenSettings()
---    
---end
 
 local function OpenCamera()
     InfoMsg("This part of the phone does not exist (yet)...")
@@ -299,7 +309,7 @@ CreateThread(function()
 			DrawScaleformMovie(scaleform, 0.0998, 0.1775, 0.1983, 0.364, 255, 255, 255, 255);
             SetTextRenderId(1)
         else 
-            Wait(500)
+            Wait(200)
         end
     end
 end)
@@ -348,21 +358,25 @@ CreateThread(function()
                     appList = 1
                 elseif placement == 5 then
                     OpenSettings()
+                    appList = 1
                 elseif placement == 6 then
                     OpenCamera()
                 elseif placement == 7 then
                     OpenInternet()
                 elseif placement == 8 then
-                    OpenSecuroServ()
+                    if not hackSecuroserv then 
+                        --OpenSecuroServ()
+                        InfoMsg("This part of the phone does not exist (yet)... ")
+                    else 
+                        OpenSecuroServHack()
+                    end
                 end
                 dataType = placement
-                --inApp = true
             elseif IsControlJustPressed(0, 177) then -- Backspace
                 PlaySoundFrontend(-1, "Menu_Back", "Phone_SoundSet_Michael", true)
                 MovePhone(false)
                 DisablePhone()
             end
-            --print(appList)
         elseif not phoneActive then  
             if IsControlJustPressed(0, 27) then 
                 LoadScaleform()
@@ -387,7 +401,7 @@ end)
 CreateThread(function()
     while true do 
         Wait(0)
-        if appList > 0 then
+        if appList == 1 then
             if IsControlJustPressed(0, 172) then -- Up
                 if altPlacement ~= 0  then 
                     PlaySoundFrontend(-1, "Menu_Navigate", "Phone_SoundSet_Michael", true)
@@ -410,11 +424,110 @@ CreateThread(function()
                     UnloadContacts()
                 elseif dataType == 4 then 
                     UnloadJobList()
+                elseif dataType == 5 then 
+                    UnloadAllSettings()
+                end
+                altPlacement = 0
+                appList = appList - 1
+            elseif IsControlJustPressed(0, 176) then -- Enter
+                PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Michael", true)
+                previousList = altPlacement
+                if dataType == 0 then 
+                    OpenEmailText(altPlacement)
+                    appList = appList + 1
+                elseif dataType == 1 then
+                    OpenTextsText(altPlacement)
+                    appList = appList + 1
+                elseif dataType == 2 then 
+                    Call(altPlacement)
+                    appList = appList + 1
+                elseif dataType == 3 then 
+                    
+                elseif dataType == 4 then 
+                    OpenJobText(altPlacement)
+                    appList = appList + 1
+                elseif dataType == 5 then 
+                    OpenSettingsType(altPlacement)
+                    appList = appList + 1
+                elseif dataType == 6 then 
+                    
+                elseif dataType == 7 then 
+                    
+                elseif dataType == 8 then 
+                    
+                end
+                --altPlacement = 0
+            end
+        else 
+            Wait(100)
+        end
+    end
+end)
+
+CreateThread(function()
+    while true do 
+        Wait(0)
+        if appList == 2 then 
+            if IsControlJustPressed(0, 172) then -- Up
+                if altPlacement ~= 0  then 
+                    PlaySoundFrontend(-1, "Menu_Navigate", "Phone_SoundSet_Michael", true)
+                    SetPlacement(GetApp(dataType), -1)
+                end
+            elseif IsControlJustPressed(0, 173) then -- Down
+                if altPlacement ~= GetDataLength() - 1 then 
+                    PlaySoundFrontend(-1, "Menu_Navigate", "Phone_SoundSet_Michael", true)
+                    SetPlacement(GetApp(dataType), 1)
+                end
+            elseif IsControlJustPressed(0, 177) then -- Backspace
+                PlaySoundFrontend(-1, "Menu_Back", "Phone_SoundSet_Michael", true)
+                SetPlacement(GetApp(dataType), 0)
+                if dataType == 0 then 
+                    UnloadEmails()
+                elseif dataType == 1 then 
+                    UnloadTexts()
+                elseif dataType == 2 then 
+                    UnloadContacts()
+                elseif dataType == 4 then 
+                    UnloadJobList()
+                elseif dataType == 5 then 
+                    UnloadAllSettings()
+                    OpenSettings()
+                    SetHeader()
+                end
+                altPlacement = 0
+                appList = appList - 1
+            elseif IsControlJustPressed(0, 176) then -- Enter 
+                PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Michael", true)
+                if dataType == 0 then 
+                    
+                elseif dataType == 1 then 
+                    
+                elseif dataType == 2 then 
+                    
+                elseif dataType == 3 then 
+                    
+                elseif dataType == 4 then 
+                    
+                elseif dataType == 5 then 
+                    if previousList == 0 then 
+                        SetBackground(altPlacement + 1)
+                    elseif previousList == 4 then 
+                        SetTheme(altPlacement + 1)
+                    end
+                    SetHeader()
+                    UnloadAllSettings()
+                    OpenSettings()
+                elseif dataType == 6 then 
+                    
+                elseif dataType == 7 then 
+                    
+                elseif dataType == 8 then 
+                    
                 end
                 altPlacement = 0
                 appList = appList - 1
             end
-        else 
+        else
             Wait(100)
         end
     end
@@ -468,11 +581,9 @@ function LoadTexture(txd)
 end
 
 function GetName(name)
-    if type(name) == "string" then
-        print(name) 
+    if type(name) == "string" then 
         return name 
-    elseif type(name) == "number" then 
-        print(name) 
+    elseif type(name) == "number" then  
         return GetPlayerName(GetPlayerFromServerId(name))
     end
 end
