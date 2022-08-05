@@ -113,6 +113,7 @@ function OpenSettingsType(num)
     altPlacement = 0
     if num == 0 then -- Background
         LoadBackgrounds()
+        appList = appList + 1
     elseif num == 1 then -- Invite sound
         InfoMsg("This part of the phone does not exist (yet)...")
     elseif num == 2 then -- Ringtone
@@ -121,6 +122,7 @@ function OpenSettingsType(num)
         InfoMsg("This part of the phone does not exist (yet)...")
     elseif num == 4 then -- Themes
         LoadThemes()
+        appList = appList + 1
     elseif num == 5 then -- Vibrate
         InfoMsg("This part of the phone does not exist (yet)...")
     end

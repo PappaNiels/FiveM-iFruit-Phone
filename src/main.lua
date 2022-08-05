@@ -448,7 +448,6 @@ CreateThread(function()
                     appList = appList + 1
                 elseif dataType == 5 then 
                     OpenSettingsType(altPlacement)
-                    appList = appList + 1
                 elseif dataType == 6 then 
                     
                 elseif dataType == 7 then 
