@@ -43,7 +43,7 @@ standardContacts = { -- char_detonatebomb
     {"Simeon", "char_simeon"},
     {"Tony", "char_tony_prince"},
     {"Wendy", "char_wendy"},
-    --{"Yohan", "char_yohan"},
+    --{"Yohan", "char_yohan"}, For newer build (2699)
     {"Yung Ancestor", "char_tw"}
 }
 
