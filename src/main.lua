@@ -18,7 +18,7 @@ local headers = {
     "Email",
     "Texts",
     "Contacts",
-    "Quick Job",
+    "Play Quick Job",
     "Job List",
     "Settings",
     "Snapmatic",
