@@ -252,7 +252,7 @@ end--
     17 = List for 14
     18 = Settings
     19 = ? List
-    22 = Settings int(22), int, 
+    22 = Settings 
     23 = Trackify
     24 = Coords int(24), int, bool, string, int, int, int, int, int, int, string, int, int, int
     25 = Job list beige
