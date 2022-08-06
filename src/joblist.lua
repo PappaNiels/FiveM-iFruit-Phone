@@ -71,6 +71,7 @@ local function AddInvite(sender, title, description, colour, char, eventName, is
 end
 
 function UnloadJobList()
+    altPlacement = 0
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
     ScaleformMovieMethodAddParamInt(20)
     EndScaleformMovieMethod()
@@ -83,6 +84,7 @@ function UnloadTextsAndJobLists()
 end
 
 function OpenJobListInvite(num)
+    altPlacement = 0
     LoadTexture(jobListInv[num + 1][5])
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
     ScaleformMovieMethodAddParamInt(7)

@@ -40,6 +40,7 @@ function UnloadTexts()
 end
 
 function OpenTexts()
+    altPlacement = 0
     LoadTexts()
 
     BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")

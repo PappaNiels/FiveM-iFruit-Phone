@@ -103,10 +103,10 @@ end
 ]]
 
 function UnloadAllSettings()
+    altPlacement = 0
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
     ScaleformMovieMethodAddParamInt(22)
     EndScaleformMovieMethod()
-    altPlacement = 0
 end
 
 function OpenSettingsType(num)
@@ -115,20 +115,21 @@ function OpenSettingsType(num)
         LoadBackgrounds()
         appList = appList + 1
     elseif num == 1 then -- Invite sound
-        InfoMsg("This part of the phone does not exist (yet)...")
+        InfoMsg(notAvailable)
     elseif num == 2 then -- Ringtone
-        InfoMsg("This part of the phone does not exist (yet)...")
+        InfoMsg(notAvailable)
     elseif num == 3 then -- Snapmatic
-        InfoMsg("This part of the phone does not exist (yet)...")
+        InfoMsg(notAvailable)
     elseif num == 4 then -- Themes
         LoadThemes()
         appList = appList + 1
     elseif num == 5 then -- Vibrate
-        InfoMsg("This part of the phone does not exist (yet)...")
+        InfoMsg(notAvailable)
     end
 end
 
 function OpenSettings()
+    altPlacement = 0
     LoadSettings()
 
     BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")

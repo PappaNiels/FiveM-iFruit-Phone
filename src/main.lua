@@ -125,7 +125,8 @@ end
 
 local function SetTheme(_theme)
     currentTheme = _theme
-
+    SetResourceKvpInt("ifruit-phone:theme", currentTheme)
+    
     BeginScaleformMovieMethod(scaleform, "SET_THEME")
     ScaleformMovieMethodAddParamInt(theme[currentTheme][3])
     EndScaleformMovieMethod()
@@ -139,6 +140,7 @@ end
 
 local function SetBackground(_background)
     currentBackground = _background 
+    SetResourceKvpInt("ifruit-phone:background", currentBackground)
 
     BeginScaleformMovieMethod(scaleform, "SET_BACKGROUND_IMAGE")
     ScaleformMovieMethodAddParamInt(background[currentBackground][3])
@@ -175,18 +177,11 @@ local function SetPlacement(app, change)
 end
 
 local function OpenQuick()
-    InfoMsg("This part of the phone does not exist (yet)...")
-end--
-
---local function OpenJobList()
---    BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
---    ScaleformMovieMethodAddParamInt(7) -- Type
---    ScaleformMovieMethodAddParamInt(altPlacement) -- Place
---    EndScaleformMovieMethod()
---end--
+    InfoMsg(notAvailable)
+end
 
 local function OpenCamera()
-    InfoMsg("This part of the phone does not exist (yet)...")
+    InfoMsg(notAvailable)
 end--
 
 local function OpenInternet()

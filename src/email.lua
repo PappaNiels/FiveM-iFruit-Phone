@@ -32,12 +32,14 @@ local function AddEmail(sender, title, msg, withFile)
 end
 
 function UnloadEmails()
+    altPlacement = 0
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
     ScaleformMovieMethodAddParamInt(8)
     EndScaleformMovieMethod()
 end 
 
 function OpenEmail()
+    altPlacement = 0
     LoadEmails()
 
     BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
