@@ -306,8 +306,8 @@ CreateThread(function()
         Wait(0)
         if phoneActive then            
             SetPauseMenuActive(false)
-	    SetTextRenderId(renderId)
-	    DrawScaleformMovie(scaleform, 0.0998, 0.1775, 0.1983, 0.364, 255, 255, 255, 255);
+			SetTextRenderId(renderId)
+			DrawScaleformMovie(scaleform, 0.0998, 0.1775, 0.1983, 0.364, 255, 255, 255, 255);
             SetTextRenderId(1)
         else 
             Wait(200)
