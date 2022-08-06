@@ -1,7 +1,7 @@
 jobListInv = {
     -- id or name, Title, Description, Colour, EventName, isServerEvent
-    {1, "Title1", "Description1", 1, "clientEventName", false},
-    {1, "Title2", "Description2", 1, "serverEventName", true}
+    {1, "Title1", "Description1", 1, "char_default", "clientEventName", false},
+    {1, "Title2", "Description2", 1, "char_default", "serverEventName", true}
 }
 
 -- Title :
@@ -60,12 +60,12 @@ local function LoadJobList()
     end
 end
 
-local function AddInvite(sender, title, description, colour, eventName, isServerEvent)
+local function AddInvite(sender, title, description, colour, char, eventName, isServerEvent)
     for i = #jobListInv, 1, -1 do 
         jobListInv[i + 1] = jobListInv[i]
     end
 
-    jobListInv[1] = {sender, title, description, colour, eventName, isServerEvent}
+    jobListInv[1] = {sender, title, description, colour, char, eventName, isServerEvent}
 
     InfoMsg(sender, title, description, 0)
 end
@@ -83,12 +83,13 @@ function UnloadTextsAndJobLists()
 end
 
 function OpenJobListInvite(num)
+    LoadTexture(jobListInv[num + 1][5])
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
     ScaleformMovieMethodAddParamInt(7)
     ScaleformMovieMethodAddParamInt(0)
     ScaleformMovieMethodAddParamPlayerNameString(GetName(jobListInv[num + 1][1]))
     ScaleformMovieMethodAddParamPlayerNameString(jobListInv[num + 1][2] .. "\n" .. jobListInv[num + 1][3])
-    ScaleformMovieMethodAddParamPlayerNameString("char_default")
+    ScaleformMovieMethodAddParamPlayerNameString(jobListInv[num + 1][5])
     EndScaleformMovieMethod()
 
     BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")

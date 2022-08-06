@@ -509,11 +509,11 @@ CreateThread(function()
                 elseif dataType == 3 then 
                     
                 elseif dataType == 4 then 
-                    if jobListInv[previousList + 1][6] then 
-                        TriggerServerEvent(jobListInv[previousList + 1][5], jobListInv[previousList + 1][2])
+                    if jobListInv[previousList + 1][7] then 
+                        TriggerServerEvent(jobListInv[previousList + 1][6], jobListInv[previousList + 1][2])
                         print("server")
                     else 
-                        TriggerEvent(jobListInv[previousList + 1][5], jobListInv[previousList + 1][2])
+                        TriggerEvent(jobListInv[previousList + 1][6], jobListInv[previousList + 1][2])
                         print("client")
                     end
 
