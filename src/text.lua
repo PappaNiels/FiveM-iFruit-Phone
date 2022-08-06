@@ -1,7 +1,7 @@
 texts = {
-    {1, "Text Title 1", "This is the content", 12, 1}, -- test texts
-    {"2", "Text Title 2", "This is the content", 1, 32},
-    {"3", "Text Title 3", "This is the content", 11, 3}
+    {1, "Text Title 1", "This is the content", 12, 1, "char_default"}, -- test texts
+    {"2", "Text Title 2", "This is the content", 1, 32, "char_default"},
+    {"3", "Text Title 3", "This is the content", 11, 3, "char_default"}
 }
 
 local function LoadTexts()
@@ -20,22 +20,38 @@ local function LoadTexts()
     end
 end
 
-local function AddText(sender, title, msg, hour, minute)
+local function AddText(sender, title, msg, hour, minute, avatar)
     UnloadTexts()
 
     for i = #texts, 1, -1 do 
         texts[i + 1] = texts[i]
     end
 
-    texts[1] = {sender, title, msg, hour, minute}
+    texts[1] = {sender, title, msg, hour, minute, avatar}
 
     PlaySoundFrontend(-1, "Notification", "Phone_SoundSet_Michael", true)
-    InfoMsgExtra(sender, title, msg, 1)
+    InfoMsgExtra(sender, title, msg, 1, avatar)
 end
 
 function UnloadTexts()
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
     ScaleformMovieMethodAddParamInt(6)
+    EndScaleformMovieMethod()
+end
+
+function OpenTextsText(num)
+    LoadTexture(texts[num][6])
+    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
+    ScaleformMovieMethodAddParamInt(7)
+    ScaleformMovieMethodAddParamInt(0)
+    ScaleformMovieMethodAddParamPlayerNameString(GetName(texts[num][1]))
+    ScaleformMovieMethodAddParamPlayerNameString(texts[num][2])
+    ScaleformMovieMethodAddParamPlayerNameString(texts[num][3])
+    EndScaleformMovieMethod()
+
+    BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
+    ScaleformMovieMethodAddParamInt(7) 
+    ScaleformMovieMethodAddParamInt(0) 
     EndScaleformMovieMethod()
 end
 

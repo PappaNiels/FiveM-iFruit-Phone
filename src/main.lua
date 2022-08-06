@@ -436,8 +436,8 @@ CreateThread(function()
                     --OpenEmailText(altPlacement)
                     --appList = appList + 1
                 elseif dataType == 1 then
-                    --OpenTextsText(altPlacement)
-                    --appList = appList + 1
+                    OpenTextsText(altPlacement)
+                    appList = appList + 1
                 elseif dataType == 2 then 
                     if standardContacts[altPlacement][1] == bombContact then 
                         DisablePhone()
