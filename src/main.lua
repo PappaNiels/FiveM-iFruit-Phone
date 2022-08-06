@@ -281,7 +281,7 @@ local function SetAppsHome()
     EndScaleformMovieMethod()
 
     BeginScaleformMovieMethod(scaleform, "SET_HEADER")
-    ScaleformMovieMethodAddParamPlayerNameString(headers[4])
+    ScaleformMovieMethodAddParamPlayerNameString(headers[5])
     EndScaleformMovieMethod()
 end
 
