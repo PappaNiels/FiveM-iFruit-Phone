@@ -84,14 +84,15 @@ function UnloadTextsAndJobLists()
 end
 
 function OpenJobListInvite(num)
+    num = num + 1
     altPlacement = 0
-    LoadTexture(jobListInv[num + 1][5])
+    LoadTexture(jobListInv[num][5])
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
     ScaleformMovieMethodAddParamInt(7)
     ScaleformMovieMethodAddParamInt(0)
-    ScaleformMovieMethodAddParamPlayerNameString(GetName(jobListInv[num + 1][1]))
-    ScaleformMovieMethodAddParamPlayerNameString(jobListInv[num + 1][2] .. "\n" .. jobListInv[num + 1][3])
-    ScaleformMovieMethodAddParamPlayerNameString(jobListInv[num + 1][5])
+    ScaleformMovieMethodAddParamPlayerNameString(GetName(jobListInv[num][1]))
+    ScaleformMovieMethodAddParamPlayerNameString(jobListInv[num][2] .. "\n" .. jobListInv[num][3])
+    ScaleformMovieMethodAddParamPlayerNameString(jobListInv[num][5])
     EndScaleformMovieMethod()
 
     BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
