@@ -108,7 +108,7 @@ local function GetApp(app)
     elseif app == 2 then 
         return 2
     elseif app == 4 then 
-        return 11
+        return 20
     elseif app == 5 then 
         return 22
     elseif app == 8 then 
@@ -295,10 +295,11 @@ local function DisablePhone()
     DestroyMobilePhone()
     SetScaleformMovieAsNoLongerNeeded(scaleform)
     SetPauseMenuActive(true)
-    phoneActive = false 
+    phoneActive = false
+    appList = 0
+    altPlacement = 0 
     placement = 4
 end
-
 
 -- Show Phone
 CreateThread(function()
@@ -445,7 +446,7 @@ CreateThread(function()
                 elseif dataType == 3 then 
                     
                 elseif dataType == 4 then 
-                    --OpenJobText(altPlacement)
+                    OpenJobListInvite(altPlacement)
                     appList = appList + 1
                 elseif dataType == 5 then 
                     OpenSettingsType(altPlacement)
@@ -488,7 +489,8 @@ CreateThread(function()
                 elseif dataType == 2 then 
                     UnloadContacts()
                 elseif dataType == 4 then 
-                    UnloadJobList()
+                    UnloadTextsAndJobLists()
+                    OpenJobList()
                 elseif dataType == 5 then 
                     UnloadAllSettings()
                     OpenSettings()
@@ -507,7 +509,16 @@ CreateThread(function()
                 elseif dataType == 3 then 
                     
                 elseif dataType == 4 then 
-                    
+                    if jobListInv[previousList + 1][6] then 
+                        TriggerServerEvent(jobListInv[previousList + 1][5], jobListInv[previousList + 1][2])
+                        print("server")
+                    else 
+                        TriggerEvent(jobListInv[previousList + 1][5], jobListInv[previousList + 1][2])
+                        print("client")
+                    end
+
+                    UnloadTextsAndJobLists()
+                    DisablePhone()
                 elseif dataType == 5 then 
                     if previousList == 0 then 
                         SetBackground(altPlacement + 1)
