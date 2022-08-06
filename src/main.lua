@@ -2,29 +2,28 @@ scaleform = 0
 altPlacement = 0
 appList = 0
 dataType = 0
-currentTheme = 2
-currentBackground = 9
+currentTheme = GetResourceKvpInt("ifruit-phone:theme")
+
+hackSecuroserv = false 
+
+if currentTheme == 0 then 
+    currentTheme = 1
+end
+
+currentBackground = GetResourceKvpInt("ifruit-phone:background")
+
+if currentBackground == 0 then 
+    currentBackground = 10
+end
+
 previousList = 0
 
 local phoneActive = false 
 local sleepMode = false
 local inApp = false 
 local isPhoneRotated = false
-local hackSecuroserv = false 
 
 local placement = 4 
-
-local headers = {
-    "Email",
-    "Texts",
-    "Contacts",
-    "Play Quick Job",
-    "Job List",
-    "Settings",
-    "Snapmatic",
-    "Internet",
-    "SecuroServ"
-}
 
 local icons = {4, 2, 5, 14, 12, 24, 1, 6, 57}
 
@@ -191,7 +190,7 @@ local function OpenCamera()
 end--
 
 local function OpenInternet()
-    InfoMsg("This part of the phone does not exist (yet)...")
+    InfoMsg(notAvailable)
 end--
 
 --local function OpenSecuroServ()
@@ -287,7 +286,7 @@ local function SetAppsHome()
     EndScaleformMovieMethod()
 
     BeginScaleformMovieMethod(scaleform, "SET_HEADER")
-    ScaleformMovieMethodAddParamPlayerNameString("Job List")
+    ScaleformMovieMethodAddParamPlayerNameString(headers[4])
     EndScaleformMovieMethod()
 end
 
@@ -300,6 +299,11 @@ local function DisablePhone()
     altPlacement = 0 
     placement = 4
 end
+
+-- For securoserv.lua (does not exist yet)
+--RegisterNetEvent("cl:ifruit:setSecuroServ", function(event)
+--
+--end)
 
 -- Show Phone
 CreateThread(function()
@@ -368,7 +372,7 @@ CreateThread(function()
                 elseif placement == 8 then
                     if not hackSecuroserv then 
                         --OpenSecuroServ()
-                        InfoMsg("This part of the phone does not exist (yet)... ")
+                        InfoMsg(notAvailable)
                     else 
                         OpenSecuroServHack()
                     end
@@ -380,7 +384,7 @@ CreateThread(function()
                 DisablePhone()
             end
         elseif not phoneActive then  
-            if IsControlJustPressed(0, 27) then 
+            if IsControlJustPressed(0, keyOpenPhone) then 
                 LoadScaleform()
                 PlaySoundFrontend(-1, "Pull_Out", "Phone_SoundSet_Michael", true)
                 CreateMobilePhone(0)
@@ -429,7 +433,6 @@ CreateThread(function()
                 elseif dataType == 5 then 
                     UnloadAllSettings()
                 end
-                altPlacement = 0
                 appList = appList - 1
             elseif IsControlJustPressed(0, 176) then -- Enter
                 PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Michael", true)
@@ -441,8 +444,11 @@ CreateThread(function()
                     OpenTextsText(altPlacement)
                     appList = appList + 1
                 elseif dataType == 2 then 
-                    Call(altPlacement)
-                    appList = appList + 1
+                    if standardContacts[altPlacement][1] == bombContact then 
+                        DisablePhone()
+                    end
+                    --Call(altPlacement)
+                    --appList = appList + 1
                 elseif dataType == 3 then 
                     
                 elseif dataType == 4 then 
@@ -457,7 +463,6 @@ CreateThread(function()
                 elseif dataType == 8 then 
                     
                 end
-                --altPlacement = 0
             end
         else 
             Wait(100)
@@ -496,7 +501,6 @@ CreateThread(function()
                     OpenSettings()
                     SetHeader(6)
                 end
-                altPlacement = 0
                 appList = appList - 1
             elseif IsControlJustPressed(0, 176) then -- Enter 
                 PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Michael", true)
@@ -535,7 +539,6 @@ CreateThread(function()
                 elseif dataType == 8 then 
                     
                 end
-                altPlacement = 0
                 appList = appList - 1
             end
         else
