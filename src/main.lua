@@ -433,11 +433,11 @@ CreateThread(function()
                 PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Michael", true)
                 previousList = altPlacement
                 if dataType == 0 then 
-                    OpenEmailText(altPlacement)
-                    appList = appList + 1
+                    --OpenEmailText(altPlacement)
+                    --appList = appList + 1
                 elseif dataType == 1 then
-                    OpenTextsText(altPlacement)
-                    appList = appList + 1
+                    --OpenTextsText(altPlacement)
+                    --appList = appList + 1
                 elseif dataType == 2 then 
                     if standardContacts[altPlacement][1] == bombContact then 
                         DisablePhone()
@@ -485,7 +485,7 @@ CreateThread(function()
                 if dataType == 0 then 
                     UnloadEmails()
                 elseif dataType == 1 then 
-                    UnloadTexts()
+                    UnloadTextsAndJobLists()
                 elseif dataType == 2 then 
                     UnloadContacts()
                 elseif dataType == 4 then 
@@ -563,9 +563,13 @@ function InfoMsg(text)
     EndTextCommandThefeedPostTicker(true, true)
 end
 
-function InfoMsgExtra(senderId, title, description, icon)
-    local txd = GetPedMugshot(senderId)
-    
+function InfoMsgExtra(senderId, title, description, icon, avatar)
+    if type(senderId) == " number" then 
+        local txd = GetPedMugshot(senderId)
+    else 
+        local txd = avatar 
+    end
+
     BeginTextCommandThefeedPost("STRING")
     AddTextComponentSubstringPlayerName(description)
     EndTextCommandThefeedPostMessagetext(txd, txd, false, icon, GetPlayerName(GetPlayerFromServerId(senderId)), title)

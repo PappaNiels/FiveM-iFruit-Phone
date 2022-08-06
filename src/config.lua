@@ -1,6 +1,8 @@
 --[[
+    This script is made by Niels (PappaNiels)
     Thanks for downloading my script!
     If you want to edit the contacts names, see contacts.lua. It is at the top of the code. 
+    Please do not re-release or claim that the resource is yours
 ]]
 
 -- This is the key hash to pull up your phone
