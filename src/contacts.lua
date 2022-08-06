@@ -313,12 +313,26 @@ local function LoadPlayerContacts()
     end
 end
 
-local function AddBomb() -- To do
+local function AddBomb()
     UnloadContacts()
+
+    LoadTexture("char_detonatebomb")
+
+    for i = #standardContacts, 8, -1 do 
+        standardContacts[i + 1] = standardContacts[i]
+    end
+
+    standardContacts[8] = {bombContact, "char_detonatebomb"}
 end
 
-local function RemoveBomb() -- To do
+local function RemoveBomb()
     UnloadContacts()
+
+    for i = 1, #standardContacts do 
+        if standardContacts[i][1] == bombContact then 
+            standardContacts[i] = nil 
+        end
+    end
 end
 
 function UnloadContacts()
@@ -345,3 +359,5 @@ RegisterNetEvent("cl:ifruit:setBombContact", function(bool)
         RemoveBomb()
     end
 end)
+
+RegisterCommand("contacts", AddBomb)
