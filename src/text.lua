@@ -68,9 +68,3 @@ function OpenTexts()
 end
 
 RegisterNetEvent("cl:ifruit:receiveText", AddText)
-
-RegisterCommand("add_text", function(src)
-    --InfoMsg("test command")
-    AddText(src, "Title Command", "test", 1, 12)
-    --InfoMsg(texts[1][2])
-end, false)
