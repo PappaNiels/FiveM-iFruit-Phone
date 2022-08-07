@@ -40,13 +40,15 @@ function UnloadTexts()
 end
 
 function OpenTextsText(num)
+    num = num + 1
+
     LoadTexture(texts[num][6])
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
     ScaleformMovieMethodAddParamInt(7)
     ScaleformMovieMethodAddParamInt(0)
     ScaleformMovieMethodAddParamPlayerNameString(GetName(texts[num][1]))
     ScaleformMovieMethodAddParamPlayerNameString(texts[num][2])
-    ScaleformMovieMethodAddParamPlayerNameString(texts[num][3])
+    ScaleformMovieMethodAddParamPlayerNameString(texts[num][6])
     EndScaleformMovieMethod()
 
     BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
