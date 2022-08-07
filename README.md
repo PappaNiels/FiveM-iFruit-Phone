@@ -4,6 +4,8 @@ This is the only phone you need in FiveM! The original iFruit phone from Grand T
 
 # How to use
 
+Resource wise it is like every other resource. Put it into your resource folder and add the resource in your server config. This resource has no dependencies, so you can use it in any server (if the controls and event are not already used ;) ).
+
 The controls are like the phone from GTA:O. Arrow keys, enter and escape are controls that are used but can be changed if desired (Native: `IsControJustPressed()`, Key hashes: https://https://docs.fivem.net/docs/game-references/controls/. 
 The main settings can be changed in the config.lua. For example, if you don't want the standard GTA:O contacts.
 
@@ -64,3 +66,7 @@ TriggerClientEvent("cl:ifruit:invitePlayer, player, sender, title, description, 
 - avatar = The avatar of the certain person (string). Default is char_default, but you can use others, like those from the contacts (see contacts.lua).
 - returnEvent = The event that triggers when you accept the job invite (string)
 - isServerEvent = If the event is a server event (boolean)
+
+# Contributing
+
+If you want to add a feature that is missing, add a non-existing feature or optimize the code, feel free to make a pull request. And if there is something that does not work as intended you can make an issue or make a pull request to fix it. Every kind of help will be much appreciated <3.
