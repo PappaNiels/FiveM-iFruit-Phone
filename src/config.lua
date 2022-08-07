@@ -11,6 +11,9 @@ keyOpenPhone = 27 -- Arrow up. See the docs (https://docs.fivem.net/docs/game-re
 -- This is the text shown for the parts of the phone that do not exist yet. This will be prompted to the user.
 notAvailable = "This part of the phone does not exist (yet) ..."
 
+-- Enable this to add the time to the top of the phone. 
+displayTime = true
+
 -- Enable this to add the standard GTA people to your contacts (Lester, Long John Teabag and some strippers).
 useStandardContacts = true 
 -- Enable this to add every active player to your contacts.

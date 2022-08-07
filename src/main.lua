@@ -486,6 +486,7 @@ CreateThread(function()
                     UnloadEmails()
                 elseif dataType == 1 then 
                     UnloadTextsAndJobLists()
+                    OpenTexts()
                 elseif dataType == 2 then 
                     UnloadContacts()
                 elseif dataType == 4 then 
@@ -545,7 +546,7 @@ end)
 CreateThread(function()
     while true do 
         Wait(500)
-        if phoneActive then
+        if phoneActive and displayTime then
             local h, m = GetClockHours(), GetClockMinutes()
             
             BeginScaleformMovieMethod(scaleform, "SET_TITLEBAR_TIME")
