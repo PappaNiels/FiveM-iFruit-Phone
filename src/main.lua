@@ -41,11 +41,12 @@ local function RotatePhone(toEmail)
     if toEmail then 
         CreateThread(function()
             while GetMobilePhonePosition().x > 56 do 
-                SetMobilePhonePosition(GetMobilePhonePosition().x - 1, -28.0, -60.0)
                 DisableAllControlActions(2)
+                SetMobilePhonePosition(GetMobilePhonePosition().x - 1, -28.0, -60.0)
                 Wait(2)
             end
             while GetMobilePhoneRotation().z < 89 do 
+                DisableAllControlActions(2)
                 SetMobilePhoneRotation(-90.0, 0.0, GetMobilePhoneRotation().z + 2)
                 Wait(1)
             end
@@ -53,11 +54,12 @@ local function RotatePhone(toEmail)
     else 
         CreateThread(function()
             while GetMobilePhonePosition().x < 61.5 do 
-                SetMobilePhonePosition(GetMobilePhonePosition().x + 1, -28.0, -60.0)
                 DisableAllControlActions(2)
+                SetMobilePhonePosition(GetMobilePhonePosition().x + 1, -28.0, -60.0)
                 Wait(2)
             end
             while GetMobilePhoneRotation().z > 1 do 
+                DisableAllControlActions(2)
                 SetMobilePhoneRotation(-90.0, 0.0, GetMobilePhoneRotation().z - 2)
                 Wait(1)
             end
@@ -68,14 +70,14 @@ end
 local function MovePhone(up)
     if up then 
         while GetMobilePhonePosition().y < -27 do 
-            SetMobilePhonePosition(61.5, GetMobilePhonePosition().y + 4, -60.0)
             DisableAllControlActions(2)
+            SetMobilePhonePosition(61.5, GetMobilePhonePosition().y + 4, -60.0)
             Wait(1)
         end
     else
         while GetMobilePhonePosition().y > -67 do 
-            SetMobilePhonePosition(61.5, GetMobilePhonePosition().y - 4, -60.0)
             DisableAllControlActions(2)
+            SetMobilePhonePosition(61.5, GetMobilePhonePosition().y - 4, -60.0)
             Wait(1)
         end
     end
