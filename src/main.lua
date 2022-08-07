@@ -527,7 +527,7 @@ end)
 CreateThread(function()
     while true do 
         Wait(500)
-        if phoneActive and displayTimew then
+        if phoneActive and displayTime then
             local h, m = GetClockHours(), GetClockMinutes()
             
             BeginScaleformMovieMethod(scaleform, "SET_TITLEBAR_TIME")
