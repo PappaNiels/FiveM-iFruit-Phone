@@ -87,19 +87,6 @@ local function LoadThemes()
     EndScaleformMovieMethod()
 end
 
---[[
-    10 = File check
-    12 = File check
-    18 = Sound turned on
-    19 = Email notification -> Snapmatic
-    20 = Vibrate 
-    21 = Muted
-    22 = 18 
-    23 = Change Theme
-    25 = Profile
-    26 = Zz
-]]
-
 function UnloadAllSettings()
     altPlacement = 0
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")

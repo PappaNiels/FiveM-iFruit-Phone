@@ -182,89 +182,15 @@ end
 
 local function OpenCamera()
     InfoMsg(notAvailable)
-end--
+end
 
 local function OpenInternet()
     InfoMsg(notAvailable)
-end--
+end
 
 --local function OpenSecuroServ()
 
 --end
-
---[[
-    1 = Camera 
-    2 = Text
-    3 = Nothing 
-    4 = Email
-    5 = Contacts
-    6 = Internet
-    11 = Contacts +
-    12 = Job List
-    13 = Empty
-    14 = Quick (Access)
-    15 = Empty
-    17 = Empty
-    24 = Settings
-    27 = Exclamation point
-    31 = Empty
-    32 = Empty
-    35 = Controller
-    36 = Empty
-    37 = Empty
-    38 = Back
-    39 = File X
-    40 = Target
-    41 = Empty
-    42 = Trackify
-    43 = Save Game Data
-    44 - 48 = Camera 
-    49 = Megephone
-    50 = Controller
-    51 - 53 = Camera
-    54 = VLSI
-    55 = Camera
-    56 = Benny's
-    57 = SecuroServ 
-
-
-    Type 
-    1 = Homepage
-    2 = Contacts 
-    3 = Homepage
-    4 = Call 
-    5 = Homepage
-    6 = Texts list
-    7 = Text
-    8 = Email list
-    9 = Email 
-    11 = Keypad
-    13 = Settings
-    14 = ? (forced colour header is brown??)
-    15 = List for 14
-    16 = Black screen
-    17 = List for 14
-    18 = Settings
-    19 = ? List
-    20 = Job list?
-    22 = Settings 
-    23 = Trackify
-    24 = Coords int(24), int, bool, string, int, int, int, int, int, int, string, int, int, int
-    25 = Job list beige
-    26 = Black text
-    27 = SecuroServ Hack no signal
-
-    Text layout
-    LoadTexture("char_default") 
-    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
-    ScaleformMovieMethodAddParamInt(7)
-    ScaleformMovieMethodAddParamInt(0)
-    ScaleformMovieMethodAddParamPlayerNameString("test1") -- Name
-    ScaleformMovieMethodAddParamPlayerNameString("test2") -- Description  
-    ScaleformMovieMethodAddParamPlayerNameString("char_default") -- Profile picture
-    EndScaleformMovieMethod()
-    
-]]
 
 local function SetAppsHome()
     for i = 0 , 9 do 
@@ -272,6 +198,7 @@ local function SetAppsHome()
         ScaleformMovieMethodAddParamInt(1) -- Type 
         ScaleformMovieMethodAddParamInt(i) -- Place 
         ScaleformMovieMethodAddParamInt(icons[i + 1]) -- Icon
+        ScaleformMovieMethodAddParamInt()
         EndScaleformMovieMethod()
     end
 
@@ -316,6 +243,35 @@ CreateThread(function()
 end)
 
 -- Key Presses
+CreateThread(function()
+    while true do 
+        Wait(0)
+        if not phoneActive then  
+            if IsControlJustPressed(0, keyOpenPhone) then 
+                LoadScaleform()
+                PlaySoundFrontend(-1, "Pull_Out", "Phone_SoundSet_Michael", true)
+                CreateMobilePhone(0)
+                SetMobilePhoneScale(280.0)
+                SetMobilePhoneRotation(-90.0, 0.0, 0.0)
+                SetMobilePhonePosition(61.5, -68.0, -60.0)
+                SetSleepMode(sleepMode)
+                SetTheme(currentTheme)
+                SetBackground(currentBackground)
+                SetAppsHome()
+                MovePhone(true)
+
+                for i = 1, #standardContacts do 
+                    LoadTexture(standardContacts[i][2])
+                end
+
+                phoneActive = true
+            end
+        else 
+            Wait(1000)
+        end
+    end
+end)
+
 CreateThread(function()
     while true do
         Wait(0) 
@@ -378,21 +334,6 @@ CreateThread(function()
                 MovePhone(false)
                 DisablePhone()
             end
-        elseif not phoneActive then  
-            if IsControlJustPressed(0, keyOpenPhone) then 
-                LoadScaleform()
-                PlaySoundFrontend(-1, "Pull_Out", "Phone_SoundSet_Michael", true)
-                CreateMobilePhone(0)
-                SetMobilePhoneScale(280.0)
-                SetMobilePhoneRotation(-90.0, 0.0, 0.0)
-                SetMobilePhonePosition(61.5, -68.0, -60.0)
-                SetSleepMode(sleepMode)
-                SetTheme(currentTheme)
-                SetBackground(currentBackground)
-                SetAppsHome()
-                MovePhone(true)
-                phoneActive = true
-            end
         else 
             Wait(100)
         end
@@ -442,7 +383,7 @@ CreateThread(function()
                     if standardContacts[altPlacement][1] == bombContact then 
                         DisablePhone()
                     end
-                    --Call(altPlacement)
+                    --Call(altPlacement) To Do
                     --appList = appList + 1
                 elseif dataType == 3 then 
                     
@@ -513,12 +454,9 @@ CreateThread(function()
                 elseif dataType == 4 then 
                     if jobListInv[previousList + 1][7] then 
                         TriggerServerEvent(jobListInv[previousList + 1][6], jobListInv[previousList + 1][2])
-                        print("server")
                     else 
                         TriggerEvent(jobListInv[previousList + 1][6], jobListInv[previousList + 1][2])
-                        print("client")
                     end
-
                     UnloadTextsAndJobLists()
                     DisablePhone()
                 elseif dataType == 5 then 
@@ -548,7 +486,7 @@ end)
 CreateThread(function()
     while true do 
         Wait(500)
-        if phoneActive and displayTime then
+        if phoneActive and displayTimew then
             local h, m = GetClockHours(), GetClockMinutes()
             
             BeginScaleformMovieMethod(scaleform, "SET_TITLEBAR_TIME")

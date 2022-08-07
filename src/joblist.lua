@@ -1,5 +1,5 @@
 jobListInv = {
-    -- id or name, Title, Description, Colour, EventName, isServerEvent
+    -- Id or name, Title, Description, Colour, EventName, isServerEvent
     {1, "Title1", "Description1", 1, "char_default", "clientEventName", false},
     {1, "Title2", "Description2", 1, "char_default", "serverEventName", true}
 }
@@ -22,38 +22,13 @@ local function LoadJobList()
         
     else
         for i = 1, #jobListInv do
-            --LoadTexture("char_default") 
             BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
             ScaleformMovieMethodAddParamInt(20)
             ScaleformMovieMethodAddParamInt(i - 1)
             ScaleformMovieMethodAddParamPlayerNameString(GetName(jobListInv[i][1])) -- Title
             ScaleformMovieMethodAddParamPlayerNameString(jobListInv[i][2]) -- Description
-
-
             ScaleformMovieMethodAddParamInt(-1)
             ScaleformMovieMethodAddParamInt(21) --Colour
-            --[[ 
-            1 = Heist green
-            2 = Red
-            3 = Yellow
-            4 = Beige
-            5 = Pink
-            6 = White
-            7 = Blue
-            8 = Purple
-            9 = Green/Blue 
-            10 = White 
-            11 = Orange 
-            12 = Green/Blue 
-            13 = Pink
-            14 = Blue
-            15 = Light Green
-            16 = Yellow
-            17 = Light blue
-            18 = Grey
-            19 = Green/Blue
-            20 = Light Blue
-            ]]
             ScaleformMovieMethodAddParamBool(true) -- Normal = true, Weird beige = false
             EndScaleformMovieMethod()
         end

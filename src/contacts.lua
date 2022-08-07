@@ -195,8 +195,6 @@ if useStandardContacts then
             {"Wendy", "char_wendy"},
             {"Yung Ancestor", "char_tw"}
         }
-        
-        --print(#standardContacts)
     elseif GetGameBuildNumber() == 2612 then
         standardContacts = {
             {"Agent 14", "char_agent14"},
@@ -287,7 +285,6 @@ local function LoadPlayerContacts()
     LoadTexture("char_default")
     for i = 1, #GetActivePlayers() do 
         contacts[i] = GetPlayerServerId(GetActivePlayers()[i])
-        --print(GetPlayerServerId(GetActivePlayers()[1]))
     end
     for i = 1, #contacts do 
         BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
@@ -299,15 +296,15 @@ local function LoadPlayerContacts()
         ScaleformMovieMethodAddParamTextureNameString("char_default") -- Profile picture
         EndScaleformMovieMethod()
     end
-    print(#standardContacts)
+
     for i = 1, #standardContacts do 
         BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
         ScaleformMovieMethodAddParamInt(2) -- Type
         ScaleformMovieMethodAddParamInt(i + #contacts - 1) -- Position
         ScaleformMovieMethodAddParamBool(false)  -- !
-        ScaleformMovieMethodAddParamPlayerNameString(standardContacts[i ][1]) -- Text
-        ScaleformMovieMethodAddParamTextureNameString(standardContacts[i ][2]) -- Profile picture
-        ScaleformMovieMethodAddParamTextureNameString(standardContacts[i ][2]) -- Profile picture
+        ScaleformMovieMethodAddParamPlayerNameString(standardContacts[i][1]) -- Text
+        ScaleformMovieMethodAddParamTextureNameString(standardContacts[i][2]) -- Profile picture
+        ScaleformMovieMethodAddParamTextureNameString(standardContacts[i][2]) -- Profile picture
         EndScaleformMovieMethod()
     end
 end
