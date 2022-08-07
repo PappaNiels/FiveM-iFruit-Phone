@@ -32,6 +32,7 @@
 **Available slots** -> 0 - 8
 
 **Icons**
+
     1 = Camera 
     2 = Text
     3 = Nothing 
