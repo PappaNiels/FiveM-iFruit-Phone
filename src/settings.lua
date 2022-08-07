@@ -77,8 +77,6 @@ local function LoadThemes()
         EndScaleformMovieMethod()
     end
 
-    print(altPlacement)
-
     BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
     ScaleformMovieMethodAddParamInt(22) 
     ScaleformMovieMethodAddParamInt(altPlacement) 
