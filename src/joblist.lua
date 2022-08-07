@@ -64,10 +64,11 @@ function OpenJobListInvite(num)
     num = num + 1
     altPlacement = 0
 
-    if not jobListInv[num][8] then 
-        jobListInv[num][8] = true 
-        SetUnread(4)
+    for i = 1, #jobListInv do 
+        jobListInv[i][8] = true
     end
+
+    SetUnread(4)
 
     LoadTexture(jobListInv[num][5])
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
