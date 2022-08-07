@@ -14,7 +14,7 @@ The main settings can be changed in the config.lua. For example, if you don't wa
 To send an email you need to trigger the following event:
 
 ```lua
-TriggerClientEvent("cl:ifruit:receiveEmail, player, sender, title, message, withFile) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
+TriggerClientEvent("cl:ifruit:receiveEmail", player, sender, title, message, withFile) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
 ``` 
 
 - player = The server id that receives the email (interger)
@@ -55,7 +55,7 @@ TriggerClientEvent("cl:ifruit:setBombContact", player, addContact) -- or Trigger
 To add an job invite you need to trigger the following event: 
 
 ```lua
-TriggerClientEvent("cl:ifruit:invitePlayer, player, sender, title, description, colour, avatar, returnEvent, isServerEvent) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
+TriggerClientEvent("cl:ifruit:invitePlayer", player, sender, title, description, colour, avatar, returnEvent, isServerEvent) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
 ```
 
 - player = The server id that receives the job invite (interger)
