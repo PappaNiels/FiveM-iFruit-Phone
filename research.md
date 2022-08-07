@@ -1,6 +1,7 @@
 ## Types of 'Apps'
 
 **Apps**
+
     1 = Homepage
     2 = Contacts 
     3 = Homepage
@@ -68,6 +69,7 @@
 ## Joblist
 
 **Colours**
+
     1 = Heist green
     2 = Red
     3 = Yellow
@@ -93,6 +95,7 @@
 ## Settings 
 
 **Icons**
+
     10 = File check
     12 = File check
     18 = Sound turned on
