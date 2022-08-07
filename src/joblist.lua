@@ -1,7 +1,7 @@
 jobListInv = {
-    -- Id or name, Title, Description, Colour, EventName, isServerEvent
-    {1, "Title1", "Description1", 1, "char_default", "clientEventName", false},
-    {1, "Title2", "Description2", 1, "char_default", "serverEventName", true}
+    -- Id or name, Title, Description, Colour, EventName, isServerEvent, Read
+    {1, "Title1", "Description1", 1, "char_default", "clientEventName", false, false},
+    {1, "Title2", "Description2", 1, "char_default", "serverEventName", true, false} 
 }
 
 -- Title :
@@ -40,8 +40,10 @@ local function AddInvite(sender, title, description, colour, char, eventName, is
         jobListInv[i + 1] = jobListInv[i]
     end
 
-    jobListInv[1] = {sender, title, description, colour, char, eventName, isServerEvent}
+    jobListInv[1] = {sender, title, description, colour, char, eventName, isServerEvent, false}
 
+    SetUnread(4)
+    PlaySoundFrontend(-1, "Notification", "Phone_SoundSet_Michael", true)
     InfoMsg(sender, title, description, 0)
 end
 
@@ -61,6 +63,12 @@ end
 function OpenJobListInvite(num)
     num = num + 1
     altPlacement = 0
+
+    if not jobListInv[num][8] then 
+        jobListInv[num][8] = true 
+        SetUnread(4)
+    end
+
     LoadTexture(jobListInv[num][5])
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
     ScaleformMovieMethodAddParamInt(7)

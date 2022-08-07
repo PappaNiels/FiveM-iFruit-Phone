@@ -27,6 +27,7 @@ local function AddEmail(sender, title, msg, withFile)
 
     emails[1] = {sender, title, msg, false, withFile}
     
+    SetUnread(4)
     PlaySoundFrontend(-1, "Notification", "Phone_SoundSet_Michael", true)
     InfoMsgExtra(sender, title, msg, 2)
 end
@@ -51,6 +52,7 @@ function OpenEmailText(num)
     
     if not emails[num][4] then 
         emails[num][4] = true
+        SetUnread(0)
     end
 
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")

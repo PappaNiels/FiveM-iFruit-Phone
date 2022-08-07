@@ -1,7 +1,7 @@
 texts = {
-    {1, "Text Title 1", "This is the content", 12, 1, "char_default"}, -- test texts
-    {"2", "Text Title 2", "This is the content", 1, 32, "char_default"},
-    {"3", "Text Title 3", "This is the content", 11, 3, "char_default"}
+    {1, "Text Title 1", "This is the content", 12, 1, "char_default", false}, -- test texts
+    {"2", "Text Title 2", "This is the content", 1, 32, "char_default", false},
+    {"3", "Text Title 3", "This is the content", 11, 3, "char_default", false}
 }
 
 local function LoadTexts()
@@ -27,8 +27,9 @@ local function AddText(sender, title, msg, hour, minute, avatar)
         texts[i + 1] = texts[i]
     end
 
-    texts[1] = {sender, title, msg, hour, minute, avatar}
+    texts[1] = {sender, title, msg, hour, minute, avatar, false}
 
+    SetUnread(1)
     PlaySoundFrontend(-1, "Notification", "Phone_SoundSet_Michael", true)
     InfoMsgExtra(sender, title, msg, 1, avatar)
 end
@@ -41,6 +42,12 @@ end
 
 function OpenTextsText(num)
     num = num + 1
+    altPlacement = 0
+
+    if not texts[num][7] then 
+        texts[num][7] = true
+        SetUnread(1)
+    end
 
     LoadTexture(texts[num][6])
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")

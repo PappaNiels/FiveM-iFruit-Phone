@@ -42,6 +42,7 @@ local function RotatePhone(toEmail)
         CreateThread(function()
             while GetMobilePhonePosition().x > 56 do 
                 SetMobilePhonePosition(GetMobilePhonePosition().x - 1, -28.0, -60.0)
+                DisableAllControlActions(2)
                 Wait(2)
             end
             while GetMobilePhoneRotation().z < 89 do 
@@ -53,6 +54,7 @@ local function RotatePhone(toEmail)
         CreateThread(function()
             while GetMobilePhonePosition().x < 61.5 do 
                 SetMobilePhonePosition(GetMobilePhonePosition().x + 1, -28.0, -60.0)
+                DisableAllControlActions(2)
                 Wait(2)
             end
             while GetMobilePhoneRotation().z > 1 do 
@@ -67,11 +69,13 @@ local function MovePhone(up)
     if up then 
         while GetMobilePhonePosition().y < -27 do 
             SetMobilePhonePosition(61.5, GetMobilePhonePosition().y + 4, -60.0)
+            DisableAllControlActions(2)
             Wait(1)
         end
     else
         while GetMobilePhonePosition().y > -67 do 
             SetMobilePhonePosition(61.5, GetMobilePhonePosition().y - 4, -60.0)
+            DisableAllControlActions(2)
             Wait(1)
         end
     end
@@ -113,6 +117,30 @@ local function GetApp(app)
     elseif app == 8 then 
         return 1 
     end
+end
+
+local function GetUnread(i)
+    local num = 0
+    if i == 0 then 
+        for i = 1, #emails do 
+            if not emails[i][4] then 
+                num = num + 1
+            end
+        end
+    elseif i == 1 then 
+        for i = 1, #texts do 
+            if not texts[i][7] then 
+                num = num + 1
+            end
+        end
+    elseif i == 4 then 
+        for i = 1, #jobListInv do 
+            if not jobListInv[i][8] then 
+                num = num + 1
+            end
+        end
+    end
+    return num
 end
 
 local function SetSleepMode(bool)
@@ -198,7 +226,9 @@ local function SetAppsHome()
         ScaleformMovieMethodAddParamInt(1) -- Type 
         ScaleformMovieMethodAddParamInt(i) -- Place 
         ScaleformMovieMethodAddParamInt(icons[i + 1]) -- Icon
-        ScaleformMovieMethodAddParamInt()
+        if i == 0 or i == 1 or i == 4 then 
+            ScaleformMovieMethodAddParamInt(GetUnread(i))
+        end
         EndScaleformMovieMethod()
     end
 
@@ -220,6 +250,17 @@ local function DisablePhone()
     appList = 0
     altPlacement = 0 
     placement = 4
+end
+
+function SetUnread(i) 
+    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
+    ScaleformMovieMethodAddParamInt(1) -- Type 
+    ScaleformMovieMethodAddParamInt(i) -- Place 
+    ScaleformMovieMethodAddParamInt(icons[i + 1]) -- Icon
+    if i == 0 or i == 1 or i == 4 then 
+        ScaleformMovieMethodAddParamInt(GetUnread(i))
+    end
+    EndScaleformMovieMethod()
 end
 
 -- For securoserv.lua (does not exist yet)
