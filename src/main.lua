@@ -420,8 +420,9 @@ CreateThread(function()
                 elseif dataType == 1 then
                     OpenTextsText(altPlacement)
                     appList = appList + 1
-                elseif dataType == 2 then 
-                    if standardContacts[altPlacement][1] == bombContact then 
+                elseif dataType == 2 then
+                    --print(altPlacement) 
+                    if standardContacts[altPlacement + 1][1] == bombContact then 
                         DisablePhone()
                     end
                     --Call(altPlacement) To Do
