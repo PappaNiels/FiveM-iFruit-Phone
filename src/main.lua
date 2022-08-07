@@ -433,8 +433,8 @@ CreateThread(function()
                 PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Michael", true)
                 previousList = altPlacement
                 if dataType == 0 then 
-                    --OpenEmailText(altPlacement)
-                    --appList = appList + 1
+                    OpenEmailText(altPlacement)
+                    appList = appList + 1
                 elseif dataType == 1 then
                     OpenTextsText(altPlacement)
                     appList = appList + 1
@@ -483,7 +483,9 @@ CreateThread(function()
                 PlaySoundFrontend(-1, "Menu_Back", "Phone_SoundSet_Michael", true)
                 SetPlacement(GetApp(dataType), 0)
                 if dataType == 0 then 
-                    UnloadEmails()
+                    UnloadFullEmails()
+                    OpenEmail()
+                    SetHeader(1)
                 elseif dataType == 1 then 
                     UnloadTextsAndJobLists()
                     OpenTexts()

@@ -1,8 +1,8 @@
 emails = {
-    {1, "Email Title", "This is the content", false, false}, -- test emails
-    {1, "Email Title", "This is the content", false, false},
-    {1, "Email Title", "This is the content", false, false},
-    {2, "Email Title", "This is the content", false, false}
+    {1, "Email Title1", "This is the content1", false, false}, -- test emails
+    {1, "Email Title2", "This is the content2", false, false},
+    {1, "Email Title3", "This is the content3", false, false},
+    {2, "Email Title4", "This is the content4", false, false}
 }
 
 local function LoadEmails()
@@ -25,10 +25,17 @@ local function AddEmail(sender, title, msg, withFile)
         emails[i + 1] = emails[i]
     end
 
-    emails[1] = {sender, title, msg, false, minute}
+    emails[1] = {sender, title, msg, false, withFile}
     
     PlaySoundFrontend(-1, "Notification", "Phone_SoundSet_Michael", true)
     InfoMsgExtra(sender, title, msg, 2)
+end
+
+function UnloadFullEmails()
+    altPlacement = 0
+    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT_EMPTY")
+    ScaleformMovieMethodAddParamInt(9)
+    EndScaleformMovieMethod()
 end
 
 function UnloadEmails()
@@ -37,6 +44,30 @@ function UnloadEmails()
     ScaleformMovieMethodAddParamInt(8)
     EndScaleformMovieMethod()
 end 
+
+function OpenEmailText(num)
+    altPlacement = 0
+    num = num + 1
+    
+    if not emails[num][4] then 
+        emails[num][4] = true
+    end
+
+    BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
+    ScaleformMovieMethodAddParamInt(9)
+    ScaleformMovieMethodAddParamInt(0)
+    ScaleformMovieMethodAddParamInt(0)
+    ScaleformMovieMethodAddParamPlayerNameString("To: " .. GetPlayerName(PlayerId()))
+    ScaleformMovieMethodAddParamPlayerNameString("From: " .. GetName(emails[num][1]))
+    ScaleformMovieMethodAddParamPlayerNameString(emails[num][2])
+    ScaleformMovieMethodAddParamPlayerNameString(emails[num][3])
+    EndScaleformMovieMethod()
+
+    BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
+    ScaleformMovieMethodAddParamInt(9) 
+    ScaleformMovieMethodAddParamInt(altPlacement) 
+    EndScaleformMovieMethod()
+end
 
 function OpenEmail()
     altPlacement = 0
