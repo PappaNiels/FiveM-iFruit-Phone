@@ -155,7 +155,6 @@ if useStandardContacts then
             {"Yung Ancestor", "char_tw"}
         }
     elseif GetGameBuildNumber() == 2545 then
-        print("this")
         standardContacts = {
             {"Agent 14", "char_agent14"},
             {"Assistant", assistant},
