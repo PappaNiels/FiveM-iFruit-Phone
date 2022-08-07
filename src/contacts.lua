@@ -355,5 +355,3 @@ RegisterNetEvent("cl:ifruit:setBombContact", function(bool)
         RemoveBomb()
     end
 end)
-
-RegisterCommand("contacts", AddBomb)
