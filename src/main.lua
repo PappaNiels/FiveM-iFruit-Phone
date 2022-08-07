@@ -27,6 +27,23 @@ local placement = 4
 
 local icons = {4, 2, 5, 14, 12, 24, 1, 6, 57}
 
+local buttons = {
+  {5, 1, 4}, -- Email
+  {11, 2, 4}, -- Text
+  {9, 5, 4}, -- Contacts
+  {1, 2, 4}, -- Job list
+  {1, 2, 4}, -- Home/Settings
+  {12, 5, 4}, -- Inner Text / Email
+  {1, 13, 4}, -- Inner Job list
+  {1, 1, 4} -- Empty
+}
+
+local buttonColours = {
+    {49, 160, 224},
+    {116, 226, 133},
+    {255, 0, 0}
+}
+
 local function LoadScaleform()
     scaleform = RequestScaleformMovie("CELLPHONE_IFRUIT")
     RequestStreamedTextureDict("cellphone_ifruit")
@@ -145,6 +162,23 @@ local function GetUnread(i)
     return num
 end
 
+local function SetButtons(num)
+    for i = 1, 3 do
+        BeginScaleformMovieMethod(scaleform, "SET_SOFT_KEYS")
+        ScaleformMovieMethodAddParamInt(i)
+        ScaleformMovieMethodAddParamInt(1)
+        ScaleformMovieMethodAddParamInt(buttons[num][i])
+        EndScaleformMovieMethod()
+
+        BeginScaleformMovieMethod(scaleform, "SET_SOFT_KEYS_COLOUR") 
+        ScaleformMovieMethodAddParamInt(i)
+        ScaleformMovieMethodAddParamInt(buttonColours[i][1])
+        ScaleformMovieMethodAddParamInt(buttonColours[i][2])
+        ScaleformMovieMethodAddParamInt(buttonColours[i][3])
+        EndScaleformMovieMethod()
+    end
+end
+
 local function SetSleepMode(bool)
     sleepMode = bool
 
@@ -233,6 +267,8 @@ local function SetAppsHome()
         end
         EndScaleformMovieMethod()
     end
+
+    SetButtons(5)
 
     BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
     ScaleformMovieMethodAddParamInt(1) -- Type
@@ -343,18 +379,34 @@ CreateThread(function()
                 PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Michael", true)
                 if placement == 0 then 
                     OpenEmail()
+                    if #emails == 0 then 
+                        SetButtons(8)
+                    else
+                        SetButtons(1)
+                    end
                     RotatePhone(true)
                     appList = 1
                 elseif placement == 1 then
                     OpenTexts()
+                    if #texts == 0 then 
+                        SetButtons(8)
+                    else
+                        SetButtons(2)
+                    end
                     appList = 1
                 elseif placement == 2 then
                     OpenContacts()
+                    SetButtons(3)
                     appList = 1
                 elseif placement == 3 then
                     OpenQuick()
                 elseif placement == 4 then
                     OpenJobList()
+                    if #jobListInv == 0 then 
+                        SetButtons(8)
+                    else
+                        SetButtons(4)
+                    end
                     appList = 1
                 elseif placement == 5 then
                     OpenSettings()
@@ -412,15 +464,18 @@ CreateThread(function()
                 elseif dataType == 5 then 
                     UnloadAllSettings()
                 end
+                SetButtons(5)
                 appList = appList - 1
             elseif IsControlJustPressed(0, 176) then -- Enter
                 PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Michael", true)
                 previousList = altPlacement
                 if dataType == 0 then 
                     OpenEmailText(altPlacement)
+                    SetButtons(6)
                     appList = appList + 1
                 elseif dataType == 1 then
                     OpenTextsText(altPlacement)
+                    SetButtons(6)
                     appList = appList + 1
                 elseif dataType == 2 then
                     --print(altPlacement) 
@@ -433,6 +488,7 @@ CreateThread(function()
                     
                 elseif dataType == 4 then 
                     OpenJobListInvite(altPlacement)
+                    SetButtons(7)
                     appList = appList + 1
                 elseif dataType == 5 then 
                     OpenSettingsType(altPlacement)
@@ -470,14 +526,17 @@ CreateThread(function()
                 if dataType == 0 then 
                     UnloadFullEmails()
                     OpenEmail()
+                    SetButtons(1)
                     SetHeader(1)
                 elseif dataType == 1 then 
                     UnloadTextsAndJobLists()
+                    SetButtons(2)
                     OpenTexts()
                 elseif dataType == 2 then 
                     UnloadContacts()
                 elseif dataType == 4 then 
                     UnloadTextsAndJobLists()
+                    SetButtons(4)
                     OpenJobList()
                 elseif dataType == 5 then 
                     UnloadAllSettings()

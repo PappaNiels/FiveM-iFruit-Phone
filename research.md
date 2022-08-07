@@ -110,3 +110,27 @@
 
     Checkmark is still missing...
 
+## Bottom buttons 
+
+**Icons**
+
+    1 = Nothing
+    2 = +
+    3 = Dots
+    4 = Back
+    5 = Accept call
+    6 = Decline / end call
+    7 = Decline / end call w/ person
+    8 = Phone with arrow (idk what it is supposed to be)
+    9 = Keypad
+    10 = Mail
+    11 = React to mail
+    12 = Delete email or text
+    13 = Check
+    14 = Back
+    15 = List down (idk)
+    16 = Internet
+    17 = Star
+    18 = Hospital star
+    19 = Fire 
+    20 = Dots
