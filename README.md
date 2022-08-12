@@ -6,7 +6,7 @@ This is the only phone you need in FiveM! The original iFruit phone from Grand T
 
 Resource wise it is like every other resource. Put it into your resource folder and add the resource in your server config. This resource has no dependencies, so you can use it in any server (if the controls and event are not already used ;) ).
 
-The controls are like the phone from GTA:O. Arrow keys, enter and escape are controls that are used but can be changed if desired (Native: `IsControJustPressed()`, Key hashes: https://https://docs.fivem.net/docs/game-references/controls/. 
+The controls are like the phone from GTA:O. Arrow keys, enter and escape are controls that are used but can be changed if desired (Native: `IsControlJustPressed()`, Key hashes: https://https://docs.fivem.net/docs/game-references/controls/. 
 The main settings can be changed in the config.lua. For example, if you don't want the standard GTA:O contacts.
 
 ## Send a e-mail
