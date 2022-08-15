@@ -88,7 +88,8 @@ local function StartTimer()
                         end
                         progress = 0
                         appList = 0
-                        isHack = false 
+                        isHack = false
+                        isOutOfRange = true 
                         headers[9] = "SecuroServ"
                         DeleteEntity(hack[1])
                         SetPlacement(1, 0)
