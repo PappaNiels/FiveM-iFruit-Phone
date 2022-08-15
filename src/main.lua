@@ -1,10 +1,11 @@
-scaleform = 0
+scaleform = RequestScaleformMovie("CELLPHONE_IFRUIT")
 altPlacement = 0
 appList = 0
 dataType = 0
 currentTheme = GetResourceKvpInt("ifruit-phone:theme")
+previousList = 0
 
-hackSecuroserv = false 
+phoneActive = false 
 
 if currentTheme == 0 then 
     currentTheme = 1
@@ -16,9 +17,6 @@ if currentBackground == 0 then
     currentBackground = 10
 end
 
-previousList = 0
-
-local phoneActive = false 
 local sleepMode = false
 local inApp = false 
 local isPhoneRotated = false
@@ -211,35 +209,6 @@ local function SetBackground(_background)
     EndScaleformMovieMethod()
 end
 
-local function SetPlacement(app, change)
-    if app == 1 then 
-        placement = placement + change
-
-        BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
-        ScaleformMovieMethodAddParamInt(1) -- Type
-        ScaleformMovieMethodAddParamInt(placement) -- Place
-        EndScaleformMovieMethod()
-
-        BeginScaleformMovieMethod(scaleform, "SET_HEADER")
-        ScaleformMovieMethodAddParamPlayerNameString(headers[placement + 1])
-        EndScaleformMovieMethod()
-    else 
-        altPlacement = altPlacement + change 
-
-        BeginScaleformMovieMethod(scaleform, "SET_INPUT_EVENT")
-        if change > 0 then 
-            ScaleformMovieMethodAddParamInt(3)
-        else 
-            ScaleformMovieMethodAddParamInt(1)
-        end
-
-        BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
-        ScaleformMovieMethodAddParamInt(app) -- Type
-        ScaleformMovieMethodAddParamInt(altPlacement) -- Place
-        EndScaleformMovieMethod()
-    end
-end
-
 local function OpenQuick()
     InfoMsg(notAvailable)
 end
@@ -282,7 +251,7 @@ end
 
 local function DisablePhone()
     DestroyMobilePhone()
-    SetScaleformMovieAsNoLongerNeeded(scaleform)
+    --SetScaleformMovieAsNoLongerNeeded(scaleform)
     SetPauseMenuActive(true)
     phoneActive = false
     appList = 0
@@ -301,10 +270,34 @@ function SetUnread(i)
     EndScaleformMovieMethod()
 end
 
--- For securoserv.lua (does not exist yet)
---RegisterNetEvent("cl:ifruit:setSecuroServ", function(event)
---
---end)
+function SetPlacement(app, change)
+    if app == 1 then 
+        placement = placement + change
+
+        BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
+        ScaleformMovieMethodAddParamInt(1) -- Type
+        ScaleformMovieMethodAddParamInt(placement) -- Place
+        EndScaleformMovieMethod()
+
+        BeginScaleformMovieMethod(scaleform, "SET_HEADER")
+        ScaleformMovieMethodAddParamPlayerNameString(headers[placement + 1])
+        EndScaleformMovieMethod()
+    else 
+        altPlacement = altPlacement + change 
+
+        BeginScaleformMovieMethod(scaleform, "SET_INPUT_EVENT")
+        if change > 0 then 
+            ScaleformMovieMethodAddParamInt(3)
+        else 
+            ScaleformMovieMethodAddParamInt(1)
+        end
+
+        BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
+        ScaleformMovieMethodAddParamInt(app) -- Type
+        ScaleformMovieMethodAddParamInt(altPlacement) -- Place
+        EndScaleformMovieMethod()
+    end
+end
 
 -- Show Phone
 CreateThread(function()
@@ -327,7 +320,7 @@ CreateThread(function()
         Wait(0)
         if not phoneActive then  
             if IsControlJustPressed(0, keyOpenPhone) then 
-                LoadScaleform()
+                --LoadScaleform()
                 PlaySoundFrontend(-1, "Pull_Out", "Phone_SoundSet_Michael", true)
                 CreateMobilePhone(0)
                 SetMobilePhoneScale(280.0)
@@ -377,6 +370,7 @@ CreateThread(function()
                 end                
             elseif IsControlJustPressed(0, 176) then -- Enter
                 PlaySoundFrontend(-1, "Menu_Accept", "Phone_SoundSet_Michael", true)
+                dataType = placement
                 if placement == 0 then 
                     OpenEmail()
                     if #emails == 0 then 
@@ -416,14 +410,14 @@ CreateThread(function()
                 elseif placement == 7 then
                     OpenInternet()
                 elseif placement == 8 then
-                    if not hackSecuroserv then 
+                    appList = 1
+                    if not isHack then 
                         --OpenSecuroServ()
                         InfoMsg(notAvailable)
                     else 
                         OpenSecuroServHack()
                     end
                 end
-                dataType = placement
             elseif IsControlJustPressed(0, 177) then -- Backspace
                 PlaySoundFrontend(-1, "Menu_Back", "Phone_SoundSet_Michael", true)
                 MovePhone(false)

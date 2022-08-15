@@ -25,7 +25,7 @@ TriggerClientEvent("cl:ifruit:receiveEmail", player, sender, title, message, wit
 
 ## Send a text 
 
-To send a text you need to trigger the following event:
+To send a text, you need to trigger the following event:
 
 ```lua
 TriggerClientEvent("cl:ifruit:receiveText", player, sender, title, message, hour, minute, avatar) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
@@ -52,7 +52,7 @@ TriggerClientEvent("cl:ifruit:setBombContact", player, addContact) -- or Trigger
 
 ## Invite to job 
 
-To add an job invite you need to trigger the following event: 
+To add an job invite, you need to trigger the following event: 
 
 ```lua
 TriggerClientEvent("cl:ifruit:invitePlayer", player, sender, title, description, colour, avatar, returnEvent, isServerEvent) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
@@ -66,6 +66,23 @@ TriggerClientEvent("cl:ifruit:invitePlayer", player, sender, title, description,
 - avatar = The avatar of the certain person (string). Default is char_default, but you can use others, like those from the contacts (see contacts.lua).
 - returnEvent = The event that triggers when you accept the job invite (string)
 - isServerEvent = If the event is a server event (boolean)
+
+## Activate the SecuroServ Hack system
+
+To use the hack system, use the following event:
+
+```lua
+TriggerClientEvent("cl:ifruit:setSecuroServ", player, entity, radius, colour, useExtraBlip, sprite, returnEvent, isServerEvent) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
+```
+
+- player = The server id that receives the job invite (interger)
+- entity = The entity that the player needs to be close to in order to use the hack (entity)
+- radius = The radius that the person needs to be in (float)
+- colour = The colour of the blip (interger) (See https://docs.fivem.net/docs/game-references/blips/#blip-colors for the colour ids)
+- useExtraBlip = If a extra blip needs to be created for the entity (bool)
+- sprite = The blip icon (interger) (See https://docs.fivem.net/docs/game-references/blips for the blip ids) (If useExtraBlip is false, you can put 0 here)
+- returnEvent = The event that gets triggered when the hack is completed (string)
+- isServerEvent = If the return event is a server event (bool)
 
 # Contributing
 
