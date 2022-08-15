@@ -1,12 +1,13 @@
-isHack = true
+isHack = false
 
 local progress = 0
+local soundId = -1
 local blip = {0, 0}
 
 local isOutOfRange = true
 
 -- Entity, Time per % (in ms), Radius, Colour Blip, extraBlip, Sprite
-local hack = {0, 500, 10, "eventName", true}
+local hack = {0, 10, 10, "eventName", true}
 
 local function SetPercentage()
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
@@ -57,9 +58,12 @@ local function StartTimer()
             
             if phoneActive and appList == 1 then      
                 if #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(hack[1])) < hack[3] and isOutOfRange then 
+                    PlaySoundFrontend(-1, "Hack_Start", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
+                    PlaySoundFrontend(soundId, "Hack_Loop", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
                     SetNoSignal(false)
                     isOutOfRange = false
                 elseif #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(hack[1])) >= hack[3] and not isOutOfRange then
+                    StopSound(soundId)
                     SetNoSignal(true)
                     isOutOfRange = true
                 end
@@ -76,21 +80,23 @@ local function StartTimer()
                 if not isOutOfRange then 
                     progress = progress + 1
                     SetPercentage()
-                    if progress == 100 then 
+                    if progress == 100 then
+                        StopSound(soundId)
+                        PlaySoundFrontend(-1, "Hack_Complete", "dlc_xm_deluxos_hacking_Hacking_Sounds", true) 
                         for i = 1, #blip do 
                             RemoveBlip(blip[i])
-                        end
-                        DeleteEntity(hack[1])
-                        SetPlacement(1, 0)
-                        if hack[5] then 
-                            TriggerServerEvent(hack[4])
-                        else
-                            TriggerEvent(hack[4])
                         end
                         progress = 0
                         appList = 0
                         isHack = false 
                         headers[9] = "SecuroServ"
+                        DeleteEntity(hack[1])
+                        SetPlacement(1, 0)
+                        if hack[5] and bih then 
+                            TriggerServerEvent(hack[4])
+                        else
+                            --TriggerEvent(hack[4])
+                        end
                     end
                 end
             else
@@ -128,6 +134,10 @@ local function SetupHack(entity, interval, radius, colour, extraBlip, sprite, ev
     
     headers[9] = "SecuroServ Hack"
     isHack = true
+
+    if soundId == -1 then 
+        soundId = GetSoundId()
+    end
 
     StartTimer()
 end
