@@ -396,11 +396,11 @@ CreateThread(function()
                 elseif placement == 7 then
                     OpenInternet()
                 elseif placement == 8 then
-                    appList = 1
                     if not isHack then 
                         --OpenSecuroServ()
                         InfoMsg(notAvailable)
                     else 
+                        appList = 1
                         OpenSecuroServHack()
                     end
                 end
