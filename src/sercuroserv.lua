@@ -92,10 +92,10 @@ local function StartTimer()
                         headers[9] = "SecuroServ"
                         DeleteEntity(hack[1])
                         SetPlacement(1, 0)
-                        if hack[5] and bih then 
+                        if hack[5] then 
                             TriggerServerEvent(hack[4])
                         else
-                            --TriggerEvent(hack[4])
+                            TriggerEvent(hack[4])
                         end
                     end
                 end

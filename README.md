@@ -23,6 +23,12 @@ TriggerClientEvent("cl:ifruit:receiveEmail", player, sender, title, message, wit
 - message = The message the mail contains (string)
 - withFile = If the email has a picture attached to it (boolean) (no images can be attached yet)
 
+### Example
+
+```lua
+TriggerClientEvent("cl:ifruit:receiveEmail", 2, 1, "This is a title", "This is the message", false)
+``` 
+
 ## Send a text 
 
 To send a text, you need to trigger the following event:
@@ -32,12 +38,18 @@ TriggerClientEvent("cl:ifruit:receiveText", player, sender, title, message, hour
 ```
 
 - player = The server id that receives the text (interger)
-- sender = The server id that sent the text (interger)
+- sender = The server id that sent the text (interger or string)
 - title = The title of the text (string)
 - message = The message the text contains (string)
 - hour = The hour that the text was sent (interger). You can use GetClockHours() to get the current hour.
 - minute = The minute that the text was sent (interger). You can use GetClockMinutes() to get the current minutes.
 - avatar = The avatar of the certain person (string). Default is char_default, but you can use others, like those from the contacts (see contacts.lua).
+
+### Example
+
+```lua
+TriggerClientEvent("cl:ifruit:receiveText", 2, "Ms. Baker", "This is a title", "This is a message", GetClockHours(), GetClockMinutes(), "char_casino_manager")
+```
 
 ## Add the 'Detonate Bomb' contact
 
@@ -50,6 +62,12 @@ TriggerClientEvent("cl:ifruit:setBombContact", player, addContact) -- or Trigger
 - player = The server id that gets or loses the 'Detonate Bomb' contact (interger)
 - addContact = If the contact gets added or removed (boolean)
 
+### Example
+
+```lua
+TriggerClientEvent("cl:ifruit:setBombContact", 1, true)
+```
+
 ## Invite to job 
 
 To add an job invite, you need to trigger the following event: 
@@ -59,13 +77,19 @@ TriggerClientEvent("cl:ifruit:invitePlayer", player, sender, title, description,
 ```
 
 - player = The server id that receives the job invite (interger)
-- sender = The server id that sent the job invite (interger)
+- sender = The server id that sent the job invite (interger or string)
 - title = The title of the job (string)
 - description = The description of the job (string). The heists all start with 'Heist : ' and all the others start with 'Invite to ', but is not mandatory.
 - colour = The colour of the field (interger). See research.md for all the known colours.
 - avatar = The avatar of the certain person (string). Default is char_default, but you can use others, like those from the contacts (see contacts.lua).
 - returnEvent = The event that triggers when you accept the job invite (string)
 - isServerEvent = If the event is a server event (boolean)
+
+### Example
+
+```lua
+TriggerClientEvent("cl:ifruit:invitePlayer", 1, 2, "The Diamond Casino Heist", " Heist : Diamond Casino Heist", 1, "char_lester", "myClientEvent", false)
+```
 
 ## Activate the SecuroServ Hack system
 
@@ -83,6 +107,22 @@ TriggerClientEvent("cl:ifruit:setSecuroServ", player, entity, radius, colour, us
 - sprite = The blip icon (interger) (See https://docs.fivem.net/docs/game-references/blips for the blip ids) (If useExtraBlip is false, you can put 0 here)
 - returnEvent = The event that gets triggered when the hack is completed (string)
 - isServerEvent = If the return event is a server event (bool)
+
+### Example
+
+```lua
+
+local modelHash = "prop_weed_01"
+    
+RequestModel(modelHash)
+
+while not HasModelLoaded(modelHash) do
+    Wait(1)
+end
+
+obj = CreateObject(GetHashKey(modelHash), -1004.0, 4963.12, 194.5, false, false, false) -- Weed plant at the cult fort
+
+TriggerClientEvent("cl:ifruit:setSecuroServ", 1, obj, 10.0, 1, true, 1, "myServerEvent", true)
 
 # Contributing
 
