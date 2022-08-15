@@ -42,15 +42,6 @@ local buttonColours = {
     {255, 0, 0}
 }
 
-local function LoadScaleform()
-    scaleform = RequestScaleformMovie("CELLPHONE_IFRUIT")
-    RequestStreamedTextureDict("cellphone_ifruit")
-
-    while not HasScaleformMovieLoaded(scaleform) do 
-        Wait(0)
-    end
-end
-
 local function RotatePhone(toEmail)
     isPhoneRotated = toEmail
     if toEmail then 
@@ -221,10 +212,6 @@ local function OpenInternet()
     InfoMsg(notAvailable)
 end
 
---local function OpenSecuroServ()
-
---end
-
 local function SetAppsHome()
     for i = 0 , 9 do 
         BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
@@ -251,7 +238,6 @@ end
 
 local function DisablePhone()
     DestroyMobilePhone()
-    --SetScaleformMovieAsNoLongerNeeded(scaleform)
     SetPauseMenuActive(true)
     phoneActive = false
     appList = 0
