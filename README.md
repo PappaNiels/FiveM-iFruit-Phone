@@ -123,6 +123,7 @@ end
 obj = CreateObject(GetHashKey(modelHash), -1004.0, 4963.12, 194.5, false, false, false) -- Weed plant at the cult fort
 
 TriggerClientEvent("cl:ifruit:setSecuroServ", 1, obj, 10.0, 1, true, 1, "myServerEvent", true)
+```
 
 # Contributing
 
