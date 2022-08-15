@@ -89,6 +89,8 @@ local function StartTimer()
                         end
                         progress = 0
                         appList = 0
+                        isHack = false 
+                        headers[9] = "SecuroServ"
                     end
                 end
             else
