@@ -42,6 +42,12 @@ local buttonColours = {
     {255, 0, 0}
 }
 
+local function LoadScaleform()
+    while not HasScaleformMovieLoaded(scaleform) do 
+        Wait(0)
+    end
+end
+
 local function RotatePhone(toEmail)
     isPhoneRotated = toEmail
     if toEmail then 
@@ -306,7 +312,7 @@ CreateThread(function()
         Wait(0)
         if not phoneActive then  
             if IsControlJustPressed(0, keyOpenPhone) then 
-                --LoadScaleform()
+                LoadScaleform()
                 PlaySoundFrontend(-1, "Pull_Out", "Phone_SoundSet_Michael", true)
                 CreateMobilePhone(0)
                 SetMobilePhoneScale(280.0)
