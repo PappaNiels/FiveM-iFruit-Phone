@@ -407,6 +407,9 @@ CreateThread(function()
                         InfoMsg(notAvailable)
                     else 
                         appList = 1
+                        soundId = GetSoundId()
+                        PlaySoundFrontend(-1, "Hack_Start", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
+                        PlaySoundFrontend(soundId, "Hack_Loop", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
                         OpenSecuroServHack()
                     end
                 end
@@ -449,6 +452,8 @@ CreateThread(function()
                     UnloadJobList()
                 elseif dataType == 5 then 
                     UnloadAllSettings()
+                elseif dataType == 8 then 
+                    StopSound(soundId)
                 end
                 SetButtons(5)
                 appList = appList - 1

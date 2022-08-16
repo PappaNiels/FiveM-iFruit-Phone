@@ -1,7 +1,7 @@
 isHack = false
+soundId = -1
 
 local progress = 0
-local soundId = -1
 local blip = {0, 0}
 
 local isOutOfRange = true
@@ -57,10 +57,8 @@ local function StartTimer()
         while isHack and progress < 100 do 
             Wait(10)
             
-            if phoneActive and useEntity and appList == 1 then      
+            if phoneActive and useEntity and appList == 1 and dataType == 8 then      
                 if #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(hack[1])) < hack[3] and isOutOfRange then 
-                    PlaySoundFrontend(-1, "Hack_Start", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
-                    PlaySoundFrontend(soundId, "Hack_Loop", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
                     SetNoSignal(false)
                     isOutOfRange = false
                 elseif #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(hack[1])) >= hack[3] and not isOutOfRange then
@@ -68,10 +66,9 @@ local function StartTimer()
                     SetNoSignal(true)
                     isOutOfRange = true
                 end
-            elseif not useEntity then
-                PlaySoundFrontend(-1, "Hack_Start", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
-                PlaySoundFrontend(soundId, "Hack_Loop", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
-                break
+            elseif not useEntity and appList == 1 and dataType == 8 and isOutOfRange then
+                
+                isOutOfRange = false
             else
                 Wait(100)
             end
@@ -81,7 +78,7 @@ local function StartTimer()
     CreateThread(function()
         while isHack and progress < 100 do 
             Wait(hack[2])
-            if phoneActive and appList == 1 then 
+            if phoneActive and appList == 1 and dataType == 8 then 
                 if not isOutOfRange or not useEntity then 
                     progress = progress + 1
                     SetPercentage(progress)
@@ -144,10 +141,6 @@ local function SetupHack(entity, interval, radius, colour, extraBlip, sprite, ev
     
     headers[9] = "SecuroServ Hack"
     isHack = true
-
-    if soundId == -1 then 
-        soundId = GetSoundId()
-    end
 
     SetPercentage(0)
     StartTimer()
