@@ -100,6 +100,7 @@ local function StartTimer()
                         else
                             TriggerEvent(hack[4])
                         end
+                        hack = {}
                     end
                 end
             else
