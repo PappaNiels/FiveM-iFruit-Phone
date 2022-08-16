@@ -100,7 +100,7 @@ TriggerClientEvent("cl:ifruit:setSecuroServ", player, entity, radius, colour, us
 ```
 
 - player = The server id that receives the job invite (interger)
-- entity = The entity that the player needs to be close to in order to use the hack (entity)
+- entity = The entity that the player needs to be close to in order to use the hack (entity). You can put 0 here to ignore the radius. The blips will also not be created. 
 - radius = The radius that the person needs to be in (float)
 - colour = The colour of the blip (interger) (See https://docs.fivem.net/docs/game-references/blips/#blip-colors for the colour ids)
 - useExtraBlip = If a extra blip needs to be created for the entity (bool)

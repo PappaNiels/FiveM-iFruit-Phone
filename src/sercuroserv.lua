@@ -5,16 +5,17 @@ local soundId = -1
 local blip = {0, 0}
 
 local isOutOfRange = true
+local useEntity = false
 
 -- Entity, Time per % (in ms), Radius, Colour Blip, extraBlip, Sprite
 local hack = {0, 10, 10, "eventName", true}
 
-local function SetPercentage()
+local function SetPercentage(percentage)
     BeginScaleformMovieMethod(scaleform, "SET_DATA_SLOT")
     ScaleformMovieMethodAddParamInt(27)
     ScaleformMovieMethodAddParamInt(0)
     ScaleformMovieMethodAddParamInt(1)
-    ScaleformMovieMethodAddParamInt(progress)
+    ScaleformMovieMethodAddParamInt(percentage)
     EndScaleformMovieMethod()
 
     BeginScaleformMovieMethod(scaleform, "DISPLAY_VIEW")
@@ -56,7 +57,7 @@ local function StartTimer()
         while isHack and progress < 100 do 
             Wait(10)
             
-            if phoneActive and appList == 1 then      
+            if phoneActive and useEntity and appList == 1 then      
                 if #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(hack[1])) < hack[3] and isOutOfRange then 
                     PlaySoundFrontend(-1, "Hack_Start", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
                     PlaySoundFrontend(soundId, "Hack_Loop", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
@@ -67,7 +68,11 @@ local function StartTimer()
                     SetNoSignal(true)
                     isOutOfRange = true
                 end
-            else 
+            elseif not useEntity then
+                PlaySoundFrontend(-1, "Hack_Start", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
+                PlaySoundFrontend(soundId, "Hack_Loop", "dlc_xm_deluxos_hacking_Hacking_Sounds", true)
+                break
+            else
                 Wait(100)
             end
         end
@@ -77,9 +82,9 @@ local function StartTimer()
         while isHack and progress < 100 do 
             Wait(hack[2])
             if phoneActive and appList == 1 then 
-                if not isOutOfRange then 
+                if not isOutOfRange or not useEntity then 
                     progress = progress + 1
-                    SetPercentage()
+                    SetPercentage(progress)
                     if progress == 100 then
                         StopSound(soundId)
                         PlaySoundFrontend(-1, "Hack_Complete", "dlc_xm_deluxos_hacking_Hacking_Sounds", true) 
@@ -119,19 +124,23 @@ end
 local function SetupHack(entity, interval, radius, colour, extraBlip, sprite, eventName, isServer)    
     hack = {entity, interval, radius, eventName, isServer}
 
-    blip[1] = AddBlipForRadius(GetEntityCoords(entity), radius)
-    SetBlipAlpha(blip[1], 175)
+    useEntity = DoesEntityExist(entity)
 
-    if extraBlip then
-        blip[2] = AddBlipForEntity(entity)
-        SetBlipSprite(blip[2], sprite)
-    end   
+    if useEntity then
+        blip[1] = AddBlipForRadius(GetEntityCoords(entity), radius)
+        SetBlipAlpha(blip[1], 175)
 
-    for i = 1, #blip do 
-        SetBlipColour(blip[i], colour)
+        if extraBlip then
+            blip[2] = AddBlipForEntity(entity)
+            SetBlipSprite(blip[2], sprite)
+        end   
+
+        for i = 1, #blip do 
+            SetBlipColour(blip[i], colour)
+        end
+
+        CreateHackArea()
     end
-
-    CreateHackArea()
     
     headers[9] = "SecuroServ Hack"
     isHack = true
@@ -140,6 +149,7 @@ local function SetupHack(entity, interval, radius, colour, extraBlip, sprite, ev
         soundId = GetSoundId()
     end
 
+    SetPercentage(0)
     StartTimer()
 end
 
