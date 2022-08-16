@@ -460,6 +460,11 @@ CreateThread(function()
                 elseif dataType == 2 then
                     --print(altPlacement) 
                     if standardContacts[altPlacement + 1][1] == bombContact then 
+                        if eventBomb[2] then 
+                            TriggerServerEvent(eventBomb[1])
+                        else
+                            TriggerEvent(eventBomb[1])
+                        end
                         DisablePhone()
                     end
                     --Call(altPlacement) To Do

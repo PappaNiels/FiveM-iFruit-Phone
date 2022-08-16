@@ -56,11 +56,13 @@ TriggerClientEvent("cl:ifruit:receiveText", 2, "Ms. Baker", "This is a title", "
 This part will add or remove the 'Detonate Bomb'contact. This only adds or removes the contact for now. 
 
 ```lua
-TriggerClientEvent("cl:ifruit:setBombContact", player, addContact) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
+TriggerClientEvent("cl:ifruit:setBombContact", player, addContact, returnEvent, isServerEvent) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
 ```
 
 - player = The server id that gets or loses the 'Detonate Bomb' contact (interger)
 - addContact = If the contact gets added or removed (boolean)
+- eventName = The event that triggers when you 'call' the bomb (string)
+- isServerEvent = If the event is a server event (boolean)
 
 ### Example
 

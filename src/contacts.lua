@@ -1,6 +1,6 @@
 contacts = {}
-
 standardContacts = {}
+eventBomb = {}
 
 if useStandardContacts then 
     if GetGameBuildNumber() == 1604 then 
@@ -348,10 +348,12 @@ function OpenContacts()
     EndScaleformMovieMethod()
 end
 
-RegisterNetEvent("cl:ifruit:setBombContact", function(bool)
+RegisterNetEvent("cl:ifruit:setBombContact", function(bool, eventName, isServer)
     if bool then 
         AddBomb()
+        eventBomb = {eventName, isServer}
     else 
         RemoveBomb()
+        eventBomb = {}
     end
 end)
