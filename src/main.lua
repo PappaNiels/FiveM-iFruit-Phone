@@ -43,6 +43,8 @@ local buttonColours = {
 }
 
 local function LoadScaleform()
+    scaleform = RequestScaleformMovie("CELLPHONE_IFRUIT")
+
     while not HasScaleformMovieLoaded(scaleform) do 
         Wait(0)
     end
