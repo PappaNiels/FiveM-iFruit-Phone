@@ -324,7 +324,7 @@ local function AddBomb()
     InfoMsgExtra("New Contact", bombContact, "", 3, "char_detonatebomb")
 end
 
-local function RemoveBomb()
+function RemoveBomb()
     UnloadContacts()
 
     for i = 1, #standardContacts do 

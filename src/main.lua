@@ -476,6 +476,7 @@ CreateThread(function()
                         else
                             TriggerEvent(eventBomb[1])
                         end
+                        RemoveBomb()
                         DisablePhone()
                     end
                     --Call(altPlacement) To Do
