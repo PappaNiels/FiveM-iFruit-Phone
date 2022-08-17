@@ -244,6 +244,7 @@ end
 
 local function DisablePhone()
     DestroyMobilePhone()
+    SetScaleformMovieAsNoLongerNeeded(scaleform)
     SetPauseMenuActive(true)
     phoneActive = false
     appList = 0
