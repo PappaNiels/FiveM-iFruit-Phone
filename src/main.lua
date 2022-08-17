@@ -604,15 +604,15 @@ function InfoMsg(text)
 end
 
 function InfoMsgExtra(senderId, title, description, icon, avatar)
-    if type(senderId) == " number" then 
-        local txd = GetPedMugshot(senderId)
-    else 
-        local txd = avatar 
-    end
-
     BeginTextCommandThefeedPost("STRING")
     AddTextComponentSubstringPlayerName(description)
-    EndTextCommandThefeedPostMessagetext(txd, txd, false, icon, GetPlayerName(GetPlayerFromServerId(senderId)), title)
+    if type(senderId) == "number" then 
+        local txd = GetPedMugshot(senderId)
+        EndTextCommandThefeedPostMessagetext(txd, txd, false, icon, GetPlayerName(GetPlayerFromServerId(senderId)), title)
+    else 
+        local txd = avatar 
+        EndTextCommandThefeedPostMessagetext(txd, txd, false, icon, senderId, title)
+    end
 end
 
 function GetPedMugshot(id)

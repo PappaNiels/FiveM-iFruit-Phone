@@ -319,6 +319,9 @@ local function AddBomb()
     end
 
     standardContacts[8] = {bombContact, "char_detonatebomb"}
+
+    PlaySoundFrontend(-1, "Notification", "Phone_SoundSet_Michael", true)
+    InfoMsgExtra("New Contact", bombContact, "", 3, "char_detonatebomb")
 end
 
 local function RemoveBomb()
