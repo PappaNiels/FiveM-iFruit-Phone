@@ -17,8 +17,8 @@ To send an email you need to trigger the following event:
 TriggerClientEvent("cl:ifruit:receiveEmail", player, sender, title, message, withFile) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
 ``` 
 
-- player = The server id that receives the email (interger)
-- sender = The server id that sent the email (interger)
+- player = The server id that receives the email (integer)
+- sender = The server id that sent the email (integer)
 - title = The title of the mail (string)
 - message = The message the mail contains (string)
 - withFile = If the email has a picture attached to it (boolean) (no images can be attached yet)
@@ -37,12 +37,12 @@ To send a text, you need to trigger the following event:
 TriggerClientEvent("cl:ifruit:receiveText", player, sender, title, message, hour, minute, avatar) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
 ```
 
-- player = The server id that receives the text (interger)
-- sender = The server id that sent the text (interger or string)
+- player = The server id that receives the text (integer)
+- sender = The server id that sent the text (integer or string)
 - title = The title of the text (string)
 - message = The message the text contains (string)
-- hour = The hour that the text was sent (interger). You can use GetClockHours() to get the current hour.
-- minute = The minute that the text was sent (interger). You can use GetClockMinutes() to get the current minutes.
+- hour = The hour that the text was sent (integer). You can use GetClockHours() to get the current hour.
+- minute = The minute that the text was sent (integer). You can use GetClockMinutes() to get the current minutes.
 - avatar = The avatar of the certain person (string). Default is char_default, but you can use others, like those from the contacts (see contacts.lua).
 
 ### Example
@@ -59,7 +59,7 @@ This part will add or remove the 'Detonate Bomb'contact. This only adds or remov
 TriggerClientEvent("cl:ifruit:setBombContact", player, addContact, returnEvent, isServerEvent) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
 ```
 
-- player = The server id that gets or loses the 'Detonate Bomb' contact (interger)
+- player = The server id that gets or loses the 'Detonate Bomb' contact (integer)
 - addContact = If the contact gets added or removed (boolean)
 - eventName = The event that triggers when you 'call' the bomb (string)
 - isServerEvent = If the event is a server event (boolean)
@@ -78,11 +78,11 @@ To add an job invite, you need to trigger the following event:
 TriggerClientEvent("cl:ifruit:invitePlayer", player, sender, title, description, colour, avatar, returnEvent, isServerEvent) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
 ```
 
-- player = The server id that receives the job invite (interger)
-- sender = The server id that sent the job invite (interger or string)
+- player = The server id that receives the job invite (integer)
+- sender = The server id that sent the job invite (integer or string)
 - title = The title of the job (string)
 - description = The description of the job (string). The heists all start with 'Heist : ' and all the others start with 'Invite to ', but is not mandatory.
-- colour = The colour of the field (interger). See research.md for all the known colours.
+- colour = The colour of the field (integer). See research.md for all the known colours.
 - avatar = The avatar of the certain person (string). Default is char_default, but you can use others, like those from the contacts (see contacts.lua).
 - returnEvent = The event that triggers when you accept the job invite (string)
 - isServerEvent = If the event is a server event (boolean)
@@ -101,12 +101,12 @@ To use the hack system, use the following event:
 TriggerClientEvent("cl:ifruit:setSecuroServ", player, entity, radius, colour, useExtraBlip, sprite, returnEvent, isServerEvent) -- or TriggerEvent if you are triggering it client-sided (remove the player parameter)
 ```
 
-- player = The server id that receives the job invite (interger)
+- player = The server id that receives the job invite (integer)
 - entity = The entity that the player needs to be close to in order to use the hack (entity). You can put 0 here to ignore the radius. The blips will also not be created. 
 - radius = The radius that the person needs to be in (float)
-- colour = The colour of the blip (interger) (See https://docs.fivem.net/docs/game-references/blips/#blip-colors for the colour ids)
+- colour = The colour of the blip (integer) (See https://docs.fivem.net/docs/game-references/blips/#blip-colors for the colour ids)
 - useExtraBlip = If a extra blip needs to be created for the entity (bool)
-- sprite = The blip icon (interger) (See https://docs.fivem.net/docs/game-references/blips for the blip ids) (If useExtraBlip is false, you can put 0 here)
+- sprite = The blip icon (integer) (See https://docs.fivem.net/docs/game-references/blips for the blip ids) (If useExtraBlip is false, you can put 0 here)
 - returnEvent = The event that gets triggered when the hack is completed (string)
 - isServerEvent = If the return event is a server event (bool)
 
