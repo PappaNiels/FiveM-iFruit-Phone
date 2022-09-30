@@ -43,10 +43,12 @@ local buttonColours = {
 }
 
 local function LoadScaleform()
-    scaleform = RequestScaleformMovie("CELLPHONE_IFRUIT")
+    if not HasScaleformMovieLoaded(scaleform) then 
+        scaleform = RequestScaleformMovie("CELLPHONE_IFRUIT")
 
-    while not HasScaleformMovieLoaded(scaleform) do 
-        Wait(0)
+        while not HasScaleformMovieLoaded(scaleform) do 
+            Wait(0)
+        end
     end
 end
 
@@ -311,6 +313,10 @@ end)
 
 -- Key Presses
 CreateThread(function()
+    for i = 1, #standardContacts do 
+        LoadTexture(standardContacts[i][2])
+    end
+    
     while true do 
         Wait(0)
         if not phoneActive then  
@@ -326,10 +332,6 @@ CreateThread(function()
                 SetBackground(currentBackground)
                 SetAppsHome()
                 MovePhone(true)
-
-                for i = 1, #standardContacts do 
-                    LoadTexture(standardContacts[i][2])
-                end
 
                 phoneActive = true
             end
@@ -630,10 +632,12 @@ function GetPedMugshot(id)
 end
 
 function LoadTexture(txd)
-    RequestStreamedTextureDict(txd)
+    if not HasStreamedTextureDictLoaded(txd) then 
+        RequestStreamedTextureDict(txd)
 
-    while not HasStreamedTextureDictLoaded(txd) do 
-        Wait(0)
+        while not HasStreamedTextureDictLoaded(txd) do 
+            Wait(0)
+        end
     end
 end
 
