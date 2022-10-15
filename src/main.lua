@@ -648,3 +648,21 @@ function GetName(name)
         return GetPlayerName(GetPlayerFromServerId(name))
     end
 end
+
+-- Command Force Close Phone
+
+RegisterCommand("kill_phone", function()
+    altPlacement = 0
+    appList = 0
+    dataType = 0
+    previousList = 0
+    phoneActive = false 
+    sleepMode = false
+    inApp = false 
+    isPhoneRotated = false
+    placement = 4 
+
+    DestroyMobilePhone()
+    SetScaleformMovieAsNoLongerNeeded(scaleform)
+    SetPauseMenuActive(true)
+end, false)
