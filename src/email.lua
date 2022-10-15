@@ -27,7 +27,7 @@ local function AddEmail(sender, title, msg, withFile)
 
     emails[1] = {sender, title, msg, false, withFile}
     
-    SetUnread(4)
+    SetUnread(0)
     PlaySoundFrontend(-1, "Notification", "Phone_SoundSet_Michael", true)
     InfoMsgExtra(sender, title, msg, 2)
 end
