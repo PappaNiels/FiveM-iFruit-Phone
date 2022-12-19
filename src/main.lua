@@ -1,4 +1,4 @@
-scaleform = RequestScaleformMovie("CELLPHONE_IFRUIT")
+scaleform = 0
 altPlacement = 0
 appList = 0
 dataType = 0
@@ -247,13 +247,19 @@ local function SetAppsHome()
 end
 
 local function DisablePhone()
+    altPlacement = 0
+    appList = 0
+    dataType = 0
+    previousList = 0
+    phoneActive = false 
+    sleepMode = false
+    inApp = false 
+    isPhoneRotated = false
+    placement = 4 
+
     DestroyMobilePhone()
     SetScaleformMovieAsNoLongerNeeded(scaleform)
     SetPauseMenuActive(true)
-    phoneActive = false
-    appList = 0
-    altPlacement = 0 
-    placement = 4
 end
 
 function SetUnread(i) 
@@ -345,7 +351,7 @@ CreateThread(function()
     while true do
         Wait(GetFrameTime()) 
         if phoneActive and appList == 0 then 
-            if IsControlJustPressed(0, 172) then -- Up
+            if IsControlJustPressed(2, 172) then -- Up
                 if placement ~= 0 and placement ~= 1 and placement ~= 2 then 
                     PlaySoundFrontend(-1, "Menu_Navigate", "Phone_SoundSet_Michael", true)
                     SetPlacement(1, -3)
@@ -573,6 +579,7 @@ CreateThread(function()
                     SetHeader(6)
                     UnloadAllSettings()
                     OpenSettings()
+                    appList = appList - 1
                 elseif dataType == 6 then 
                     
                 elseif dataType == 7 then 
@@ -580,7 +587,6 @@ CreateThread(function()
                 elseif dataType == 8 then 
                     
                 end
-                appList = appList - 1
             end
         else
             Wait(100)
