@@ -297,19 +297,18 @@ function SetPlacement(app, change)
 end
 
 -- Show Phone
-CreateThread(function()
-    while true do
-        Wait(0)
-        if phoneActive then            
+function ShowPhone()
+    CreateThread(function()
+        while phoneActive do
+            Wait(GetFrameTime())
+
             SetPauseMenuActive(false)
-			SetTextRenderId(renderId)
-			DrawScaleformMovie(scaleform, 0.0998, 0.1775, 0.1983, 0.364, 255, 255, 255, 255);
+            SetTextRenderId(renderId)
+            DrawScaleformMovie(scaleform, 0.0998, 0.1775, 0.1983, 0.364, 255, 255, 255, 255);
             SetTextRenderId(1)
-        else 
-            Wait(200)
         end
-    end
-end)
+    end)
+end
 
 -- Key Presses
 CreateThread(function()
@@ -334,6 +333,7 @@ CreateThread(function()
                 MovePhone(true)
 
                 phoneActive = true
+                ShowPhone()
             end
         else 
             Wait(1000)
@@ -343,7 +343,7 @@ end)
 
 CreateThread(function()
     while true do
-        Wait(0) 
+        Wait(GetFrameTime()) 
         if phoneActive and appList == 0 then 
             if IsControlJustPressed(0, 172) then -- Up
                 if placement ~= 0 and placement ~= 1 and placement ~= 2 then 
@@ -431,7 +431,7 @@ end)
 
 CreateThread(function()
     while true do 
-        Wait(0)
+        Wait(GetFrameTime())
         if appList == 1 then
             if IsControlJustPressed(0, 172) then -- Up
                 if altPlacement ~= 0  then 
@@ -510,7 +510,7 @@ end)
 
 CreateThread(function()
     while true do 
-        Wait(0)
+        Wait(GetFrameTime())
         if appList == 2 then 
             if IsControlJustPressed(0, 172) then -- Up
                 if altPlacement ~= 0  then 
