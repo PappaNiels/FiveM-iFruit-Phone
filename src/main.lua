@@ -481,7 +481,7 @@ CreateThread(function()
                     appList = appList + 1
                 elseif dataType == 2 then
                     --print(altPlacement) 
-                    if standardContacts[altPlacement + 1][1] == bombContact then 
+                    if bombcontacts ~= nil and standardContacts[altPlacement + 1][1] == bombContact then 
                         if eventBomb[2] then 
                             TriggerServerEvent(eventBomb[1])
                         else
